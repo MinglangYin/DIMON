@@ -6,7 +6,10 @@ We introduce a neural operator framework, named **DIffeomorphic Mapping Operator
 **Note**: Data in example 3 is not included in this link as the heart geometries are patient-specific clinical data. Data in Example 3 can be provided by request to the corresponding authors and potentially after an IRB for sharing data is approved.
 
 ## Environments
+python >= 3.7.4
 
+python -m venv dimon
+pip install torch 
 
 ## Examples
 This repository contains three examples: solving the Laplace equation on 2D domains, solving reaction-diffusion equations on 2D annulus, and predicting electrical wave propagation on patient-specific left ventricles.  
