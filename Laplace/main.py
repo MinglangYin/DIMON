@@ -1,10 +1,12 @@
 """
 Author: Minglang Yin, myin16@jhu.edu
-Solving Poisson Equation on Paramertized Domain. 
+Solving Laplace Equation on Paramertized Domain. 
 
 Branch Net Input:       [u(x1), u(x2), ..., u(xn)]
 Trunk Net Input:        [x, y]
 Output:                 [u]
+
+python main.py --epoch 10000
 """
 import os
 import torch
@@ -21,7 +23,6 @@ from torch.utils.data import Dataset, DataLoader
 
 import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1 import make_axes_locatable
-
 from sklearn.decomposition import PCA
 
 

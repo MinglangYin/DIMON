@@ -12,13 +12,6 @@ import matplotlib.pyplot as plt
 from scipy.interpolate import Rbf
 from scipy.linalg import svd
 
-# from shapely.geometry import Point
-# from shapely.geometry.polygon import Polygon
-# from shapely.geometry.point import Point
-# import shapely.affinity
-# from descartes import PolygonPatch
-# from shapely.figures import SIZE, GREEN, GRAY, set_limits
-
 def ParseArgument():
     parser = argparse.ArgumentParser(description='DeepONet')
     parser.add_argument('--epochs', type=int, default=50000, metavar='N',
@@ -29,8 +22,6 @@ def ParseArgument():
                         help = 'save_step (default: 10000)')
     parser.add_argument('--restart', type=int, default=0, metavar='N',
                         help = 'if restart (default: 0)')
-    # parser.add_argument('--batch-size', type=int, default=1000000, metavar='N',
-    #                     help = 'batch_size (default: 1000000)')
     parser.add_argument('--test-model', type=int, default=0, metavar='N',
                         help = 'default training, testing as 1')
 
