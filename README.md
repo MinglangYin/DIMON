@@ -1,7 +1,7 @@
 # DIffeomorphic-Mapping Operator Learning (DIMON)
 We introduce a neural operator framework, named **DIffeomorphic Mapping Operator learNing (DIMON)**, which allows AI to learn geometry-dependent solution operators of different types of PDEs on a wide variety of geometries. Arxiv: https://arxiv.org/abs/2402.07250
 
-%![screenshot](./figure/schematics.pdf)
+![DIMON schematic](./figure/schematics.pdf)
 
 **Data**: https://livejohnshopkins-my.sharepoint.com/:f:/g/personal/myin16_jh_edu/Emh_HjEzP9NKh728InPkjvMBXWdvM7mwpLhQ8MblbYnLWw?e=q1j7cB
 
