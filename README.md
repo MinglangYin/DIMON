@@ -19,10 +19,15 @@ This repository contains three examples: solving the Laplace equation on 2D doma
 0. download data to the main folder
 
 1. create a virtual environment and install packages
+2. 
 `python -m venv dimon`
+
 `source YOUR_PATH/dimon/bin/activate`
+
 `pip install torch matplotlib scipy scikit-learn`
 
-2. network training
+3. network training
+   
 `cd EXAMPLE_FOLDER`
+
 `python main.py --epoch 10000`
