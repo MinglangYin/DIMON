@@ -8,9 +8,12 @@ We introduce a neural operator framework, named **DIffeomorphic Mapping Operator
 **Note**: Data in example 3 is not included in this link as the heart geometries are patient-specific clinical data. Data in Example 3 can be provided by request to the corresponding authors and potentially after an IRB for sharing data is approved.
 
 ## Environments
-python >= 3.7.4
-torch >= 1.2.0 (this legacy version is compatible with CUDA==10.2, the new versiosn can be used if CUDA driver is compatible.)
-pip >= 24.0
+>python >= 3.7.4
+
+>torch >= 1.2.0 (this legacy version is compatible with CUDA==10.2, the new versiosn can be used if CUDA driver is compatible.)
+
+>pip >= 24.0
+
 torch version has to be compatible with the CUDA driver. https://pytorch.org/get-started/previous-versions/
 
 ## Examples
