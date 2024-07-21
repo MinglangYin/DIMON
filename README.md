@@ -9,18 +9,18 @@ We introduce a neural operator framework, named **DIffeomorphic Mapping Operator
 
 ## Environments
 python >= 3.7.4
-torch >= 1.2.0 (this legacy version is compatible with CUDA==10.2,  new version can be used if CUDA driver is compatible.)
+torch >= 1.2.0 (this legacy version is compatible with CUDA==10.2, the new versiosn can be used if CUDA driver is compatible.)
 pip >= 24.0
 torch version has to be compatible with the CUDA driver. https://pytorch.org/get-started/previous-versions/
-
-% step 0: download data to the main folder
-
-% step 1: create a virtual environment and install packages
-python -m venv dimon
-source YOUR_PATH/dimon/bin/activate
-pip install torch matplotlib scipy scikit-learn
 
 ## Examples
 This repository contains three examples: solving the Laplace equation on 2D domains, solving reaction-diffusion equations on 2D annulus, and predicting electrical wave propagation on patient-specific left ventricles.
 
-To train DIMON, please follow these steps
+0. download data to the main folder
+
+1. create a virtual environment and install packages
+'python -m venv dimon'
+'source YOUR_PATH/dimon/bin/activate'
+'pip install torch matplotlib scipy scikit-learn'
+
+2. 
