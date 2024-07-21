@@ -57,7 +57,7 @@ def main():
     os.makedirs('CheckPts', exist_ok=True)
     
     ## dataset main
-    datafile = "../Laplace_data.mat"
+    datafile = "./Laplace_data.mat"
     dataset = io.loadmat(datafile)
 
     x = dataset["x_uni"]
@@ -68,7 +68,7 @@ def main():
     u_bc = u_bc[:, ::skip]
 
     ## dataset supp
-    datafile_supp = "../Laplace_data_supp.mat"
+    datafile_supp = "./Laplace_data_supp.mat"
     dataset_supp = io.loadmat(datafile_supp)
 
     x_mesh_supp = dataset_supp["x_mesh_data"]
@@ -78,7 +78,7 @@ def main():
     u_bc_supp = u_bc_supp[:, ::skip]
 
     ## dataset supp 2
-    datafile_supp2 = "../Laplace_data_supp2000.mat"
+    datafile_supp2 = "./Laplace_data_supp2000.mat"
     dataset_supp2 = io.loadmat(datafile_supp2)
 
     x_mesh_supp2 = dataset_supp2["x_mesh_data"]
@@ -186,18 +186,9 @@ def main():
             loss_tmp = to_numpy(model.loss(f_test_tensor, f_bc_test_tensor, x_tensor, u_test_tensor))
             test_loss[epoch, 0] = loss_tmp
 
-            ## Relative L2
-            
-            
-            
-
             ## testing error
             if epoch%100 == 0:
-                # y_out = model.forward(f_test_tensor, x_tensor, u_test_tensor)
-                # print(y_out[0])
-                # print(y_enc[0])
-                # print( ((y_out - y_enc)**2).mean()  )
-                print(f'Epoch: {epoch}, Train Loss: {train_loss[epoch, 0]:.6f}, Test Loss: {test_loss[epoch, 0]:.6f}, Rel L2 test: {rel_l2_err_his[epoch, 0]}', flush=True)
+                print(f'Epoch: {epoch}, Train Loss: {train_loss[epoch, 0]:.6f}, Test Loss: {test_loss[epoch, 0]:.6f}', flush=True)
                 
             ## Save model
             if (epoch+1)%save_step == 0: 
@@ -310,9 +301,6 @@ def main():
                         # np.mean()
     np.savetxt("mean_abs_err.txt", mean_abs_err)
     np.savetxt("rel_l2_err.txt", rel_l2_err)
-    print(mean_abs_err.mean())
-    print(rel_l2_err.mean())
-    exit()
 
 
     for i in range(0, 10):
