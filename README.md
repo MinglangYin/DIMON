@@ -14,7 +14,7 @@ We introduce a neural operator framework, named **DIffeomorphic Mapping Operator
 
 >pip >= 24.0
 
-torch version has to be compatible with the CUDA driver. https://pytorch.org/get-started/previous-versions/
+Installation requires about 1 min on a personal laptop. torch version has to be compatible with the CUDA driver. https://pytorch.org/get-started/previous-versions/
 
 ## Examples
 This repository contains three examples: solving the Laplace equation on 2D domains, solving reaction-diffusion equations on 2D annulus, and predicting electrical wave propagation on patient-specific left ventricles.
@@ -34,3 +34,5 @@ This repository contains three examples: solving the Laplace equation on 2D doma
 >`cd EXAMPLE_FOLDER`
 
 >`python main.py --epoch 10000`
+
+**Note**: please train with the same number of epochs to reproduce the results in the paper.
