@@ -1,0 +1,3875 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+This CellML file was generated on 13/05/2008 at 13:05:39 using:
+
+COR (0.9.31.947)
+Copyright 2002-2008 Dr Alan Garny
+http://COR.physiol.ox.ac.uk/ - COR@physiol.ox.ac.uk
+
+CellML 1.0 was used to generate this cellular model
+http://www.CellML.org/
+--><model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:ns7="http://www.cellml.org/metadata/simulation/1.0#" name="tentusscher_panfilov_2006_epi_cell" cmeta:id="tentusscher_panfilov_2006_epi_cell">
+<documentation xmlns="http://cellml.org/tmp-documentation">
+<article>
+  <articleinfo>
+  <title>Alternans and spiral breakup in a human ventricular tissue model</title>
+  <author>
+    <firstname>Noble</firstname>
+          <surname>Penny</surname>
+    <affiliation>
+      <shortaffil>Oxford University Cardiac Electrophysiology Group</shortaffil>
+    </affiliation>
+  </author>
+</articleinfo>
+  <section id="sec_status">
+    <title>Model Status</title>
+    <para>
+            This is the EPICARDIAL CELL VARIANT of the model. This model was created by Penny Noble of Oxford University and is known to read in COR and PCEnv. A stimulus protocol has been added that allows the model to simulate multiple action potentials at 1Hz.
+          </para>
+  </section>
+  <sect1 id="sec_structure">
+<title>Model Structure</title>
+
+<para>
+In their 2006 paper "Alternans and spiral breakup in a human ventricular tissue model," ten Tusscher et al. improve the detail of their 2004 model in order to investigate the conditions for electrical instability in human ventricular tissue by simulation. In particular, the so-called 'resitution hypothesis' of ventricular fibrillation, which states that if the action potential duration (APD) restitution curve has a maximum slope steeper than 1, it will lead to APD alternans. Because of the substantial limitations of using traditional experimental electrophysiological techniques to investigate these phenomena, mathematical modelling is a useful technique for such studies.
+
+The 2006 model is based on earlier ten Tusscher models, and incorporates recent experimental restitution data, an improved description of intracellular calcium dynamics - including subspace calcium dynamics which control L-type calcium current and calcium-induced calcium release (CICR,) by means of modelling CICR with a four-state Markov model for the ryanodine receptor - and incorporation of both fast and slow voltage-gated inactivation of the L-type calcium current. 
+</para>
+<para>
+ABSTRACT:
+</para>
+<para>
+Ventricular fibrillation (VF) is one of the main causes of death in the Western world. According to one hypothesis, the chaotic excitation dynamics during VF are the result of dynamical instabilities in action potential duration (APD) the occurrence of which requires that the slope of the APD restitution curve exceeds 1. Other factors such as electrotonic coupling and cardiac memory also determine whether these instabilities can develop. In this paper we study the conditions for alternans and spiral breakup in human cardiac tissue. Therefore, we develop a new version of our human ventricular cell model, which is based on recent experimental measurements of human APD restitution and includes a more extensive description of intracellular calcium dynamics. We apply this model to study the conditions for electrical instability in single cells, for reentrant waves in a ring of cells, and for reentry in two-dimensional sheets of ventricular tissue. We show that an important determinant for the onset of instability is the recovery dynamics of the fast sodium current. Slower sodium current recovery leads to longer periods of spiral wave rotation and more gradual conduction velocity restitution, both of which suppress restitution-mediated instability. As a result, maximum restitution slopes considerably exceeding 1 (up to 1.5) may be necessary for electrical instability to occur. Although slopes necessary for the onset of instabilities found in our study exceed 1, they are within the range of experimentally measured slopes. Therefore, we conclude that steep APD restitution-mediated instability is a potential mechanism for VF in the human heart.
+</para>
+
+<para>
+The complete original paper reference is cited below:
+</para>
+
+<para>
+<ulink url="http://ajpheart.physiology.org/cgi/content/abstract/291/3/H1088">Alternans and spiral breakup in a human ventricular tissue model</ulink>, K.H.W.J. ten Tusscher, A.V. Panfilov, Sep 2006,<ulink url="http://ajpheart.physiology.org/">
+            <emphasis>American Journal of Physiology, Heart and Circulatory Physiology</emphasis>
+          </ulink>
+, 291 3, H1088-1100.  (<ulink url="http://ajpheart.physiology.org/cgi/content/full/291/3/H1088">Full text (HTML)</ulink> and <ulink url="http://ajpheart.physiology.org/cgi/reprint/291/3/H1088">PDF</ulink> versions of the article are available to subscribers on the <emphasis>American Journal of Physiology</emphasis> website.)  <ulink url="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&amp;db=PubMed&amp;list_uids=16565318&amp;dopt=Abstract">PubMed ID: 16565318</ulink>
+</para>
+
+<informalfigure float="0" id="fig_cell_diagram">
+<mediaobject>
+  <imageobject>
+    <objectinfo>
+      <title>cell diagram</title>
+    </objectinfo>
+    <imagedata fileref="tentusscher_2006.png"/>
+  </imageobject>
+</mediaobject>
+<caption>A schematic diagram describing the ion movement across the cell surface membrane and the sarcoplasmic reticulum, which are described by the Ten Tusscher <emphasis>et al.</emphasis> 2006 mathematical model of the human ventricular myocyte.</caption>
+</informalfigure>
+
+</sect1>
+</article>
+</documentation>
+   <units name="micrometre">
+      <unit units="metre" prefix="micro"/>
+   </units>
+   <units name="micrometre3">
+      <unit units="metre" prefix="micro" exponent="3"/>
+   </units>
+   <units name="litre_micrometre3">
+      <unit units="litre"/>
+      <unit units="micrometre3" exponent="-1"/>
+   </units>
+   <units name="millisecond">
+      <unit units="second" prefix="milli"/>
+   </units>
+   <units name="per_millisecond">
+      <unit units="second" prefix="milli" exponent="-1"/>
+   </units>
+   <units name="millivolt">
+      <unit units="volt" prefix="milli"/>
+   </units>
+   <units name="millivolt_square">
+      <unit units="volt" prefix="milli" exponent="+2"/>
+   </units>
+   <units name="per_millivolt">
+      <unit units="volt" prefix="milli" exponent="-1"/>
+   </units>
+   <units name="nanoS_per_picoF">
+      <unit units="siemens" prefix="nano"/>
+      <unit units="farad" prefix="pico" exponent="-1"/>
+   </units>
+   <units name="microF">
+      <unit units="farad" prefix="micro"/>
+   </units>
+   <units name="picoA">
+      <unit units="ampere" prefix="pico"/>
+   </units>
+   <units name="mA_pA">
+      <unit units="ampere" prefix="milli"/>
+      <unit units="picoA" exponent="-1"/>
+   </units>
+   <units name="picoA_per_picoF">
+      <unit units="ampere" prefix="pico"/>
+      <unit units="farad" prefix="pico" exponent="-1"/>
+   </units>
+   <units name="nanoA_per_millimolar">
+      <unit units="ampere" prefix="nano"/>
+      <unit units="millimolar" exponent="-1"/>
+   </units>
+   <units name="millimolar">
+      <unit units="mole" prefix="milli"/>
+      <unit units="litre" exponent="-1"/>
+   </units>
+   <units name="millimolar_per_millisecond">
+      <unit units="millimolar"/>
+      <unit units="second" prefix="milli" exponent="-1"/>
+   </units>
+   <units name="per_millimolar_per_millisecond">
+      <unit units="millimolar" exponent="-1"/>
+      <unit units="second" prefix="milli" exponent="-1"/>
+   </units>
+   <units name="per_millimolar2_per_millisecond">
+      <unit units="millimolar" exponent="-2"/>
+      <unit units="second" prefix="milli" exponent="-1"/>
+   </units>
+   <units name="joule_per_mole_kelvin">
+      <unit units="joule"/>
+      <unit units="mole" exponent="-1"/>
+      <unit units="kelvin" exponent="-1"/>
+   </units>
+   <units name="coulomb_per_millimole">
+      <unit units="coulomb"/>
+      <unit units="mole" prefix="milli" exponent="-1"/>
+   </units>
+   <units name="cm2">
+      <unit units="metre" prefix="centi" exponent="2"/>
+   </units>
+   <units name="microF_per_cm2">
+      <unit units="microF"/>
+      <unit units="cm2" exponent="-1"/>
+   </units>
+   <units name="litre_per_farad_second">
+      <unit units="litre"/>
+      <unit units="farad" exponent="-1"/>
+      <unit units="second" exponent="-1"/>
+   </units>
+   <component name="environment">
+      <variable units="millisecond" public_interface="out" name="time"/>
+   </component>
+   <component name="membrane">
+      <variable units="millivolt" public_interface="out" name="V" initial_value="-85.23"/>
+      <variable units="joule_per_mole_kelvin" public_interface="out" name="R" initial_value="8.314"/>
+      <variable units="kelvin" public_interface="out" name="T" initial_value="310"/>
+      <variable units="coulomb_per_millimole" public_interface="out" name="F" initial_value="96.485"/>
+      <variable units="microF" public_interface="out" name="Cm" initial_value="0.185"/>
+      <variable units="micrometre3" public_interface="out" name="V_c" initial_value="0.016404"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="i_K1"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="i_to"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="i_Kr"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="i_Ks"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="i_CaL"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="i_NaK"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="i_Na"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="i_b_Na"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="i_NaCa"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="i_b_Ca"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="i_p_K"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="i_p_Ca"/>
+      <variable units="picoA_per_picoF" public_interface="out" name="i_Stim"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="Istim"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>i_Stim</ci>
+            <ci>Istim</ci>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>V</ci>
+            </apply>
+            <apply>
+               <times/>
+               <apply>
+                  <divide/>
+                  <apply>
+                     <minus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                  </apply>
+                  <cn cellml:units="dimensionless">1</cn>
+               </apply>
+               <apply>
+                  <plus/>
+                  <ci>i_K1</ci>
+                  <ci>i_to</ci>
+                  <ci>i_Kr</ci>
+                  <ci>i_Ks</ci>
+                  <ci>i_CaL</ci>
+                  <ci>i_NaK</ci>
+                  <ci>i_Na</ci>
+                  <ci>i_b_Na</ci>
+                  <ci>i_NaCa</ci>
+                  <ci>i_b_Ca</ci>
+                  <ci>i_p_K</ci>
+                  <ci>i_p_Ca</ci>
+                  <ci>i_Stim</ci>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="reversal_potentials">
+      <variable units="millivolt" public_interface="out" name="E_Na"/>
+      <variable units="millivolt" public_interface="out" name="E_K"/>
+      <variable units="millivolt" public_interface="out" name="E_Ks"/>
+      <variable units="millivolt" public_interface="out" name="E_Ca"/>
+      <variable units="dimensionless" name="P_kna" initial_value="0.03"/>
+      <variable units="millimolar" public_interface="in" name="K_o"/>
+      <variable units="millimolar" public_interface="in" name="Na_o"/>
+      <variable units="millimolar" public_interface="in" name="K_i"/>
+      <variable units="millimolar" public_interface="in" name="Na_i"/>
+      <variable units="millimolar" public_interface="in" name="Ca_o"/>
+      <variable units="millimolar" public_interface="in" name="Ca_i"/>
+      <variable units="joule_per_mole_kelvin" public_interface="in" name="R"/>
+      <variable units="coulomb_per_millimole" public_interface="in" name="F"/>
+      <variable units="kelvin" public_interface="in" name="T"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>E_Na</ci>
+            <apply>
+               <times/>
+               <apply>
+                  <divide/>
+                  <apply>
+                     <times/>
+                     <ci>R</ci>
+                     <ci>T</ci>
+                  </apply>
+                  <ci>F</ci>
+               </apply>
+               <apply>
+                  <ln/>
+                  <apply>
+                     <divide/>
+                     <ci>Na_o</ci>
+                     <ci>Na_i</ci>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>E_K</ci>
+            <apply>
+               <times/>
+               <apply>
+                  <divide/>
+                  <apply>
+                     <times/>
+                     <ci>R</ci>
+                     <ci>T</ci>
+                  </apply>
+                  <ci>F</ci>
+               </apply>
+               <apply>
+                  <ln/>
+                  <apply>
+                     <divide/>
+                     <ci>K_o</ci>
+                     <ci>K_i</ci>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>E_Ks</ci>
+            <apply>
+               <times/>
+               <apply>
+                  <divide/>
+                  <apply>
+                     <times/>
+                     <ci>R</ci>
+                     <ci>T</ci>
+                  </apply>
+                  <ci>F</ci>
+               </apply>
+               <apply>
+                  <ln/>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <plus/>
+                        <ci>K_o</ci>
+                        <apply>
+                           <times/>
+                           <ci>P_kna</ci>
+                           <ci>Na_o</ci>
+                        </apply>
+                     </apply>
+                     <apply>
+                        <plus/>
+                        <ci>K_i</ci>
+                        <apply>
+                           <times/>
+                           <ci>P_kna</ci>
+                           <ci>Na_i</ci>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>E_Ca</ci>
+            <apply>
+               <times/>
+               <apply>
+                  <divide/>
+                  <apply>
+                     <times/>
+                     <cn cellml:units="dimensionless">0.5</cn>
+                     <ci>R</ci>
+                     <ci>T</ci>
+                  </apply>
+                  <ci>F</ci>
+               </apply>
+               <apply>
+                  <ln/>
+                  <apply>
+                     <divide/>
+                     <ci>Ca_o</ci>
+                     <ci>Ca_i</ci>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="inward_rectifier_potassium_current">
+      <variable units="picoA_per_picoF" public_interface="out" name="i_K1"/>
+      <variable units="nanoS_per_picoF" name="g_K1" initial_value="5.405"/>
+      <variable units="millivolt" public_interface="in" name="V"/>
+      <variable units="millimolar" public_interface="in" name="K_o"/>
+      <variable units="millivolt" public_interface="in" name="E_K"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <variable units="dimensionless" name="xK1_inf"/>
+      <variable units="dimensionless" name="alpha_K1"/>
+      <variable units="dimensionless" name="beta_K1"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>alpha_K1</ci>
+            <apply>
+               <divide/>
+               <cn cellml:units="dimensionless">0.1</cn>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <times/>
+                        <cn cellml:units="per_millivolt">0.06</cn>
+                        <apply>
+                           <minus/>
+                           <apply>
+                              <minus/>
+                              <ci>V</ci>
+                              <ci>E_K</ci>
+                           </apply>
+                           <cn cellml:units="millivolt">200</cn>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>beta_K1</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <plus/>
+                  <apply>
+                     <times/>
+                     <cn cellml:units="dimensionless">3</cn>
+                     <apply>
+                        <exp/>
+                        <apply>
+                           <times/>
+                           <cn cellml:units="per_millivolt">0.0002</cn>
+                           <apply>
+                              <plus/>
+                              <apply>
+                                 <minus/>
+                                 <ci>V</ci>
+                                 <ci>E_K</ci>
+                              </apply>
+                              <cn cellml:units="millivolt">100</cn>
+                           </apply>
+                        </apply>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <times/>
+                        <cn cellml:units="per_millivolt">0.1</cn>
+                        <apply>
+                           <minus/>
+                           <apply>
+                              <minus/>
+                              <ci>V</ci>
+                              <ci>E_K</ci>
+                           </apply>
+                           <cn cellml:units="millivolt">10</cn>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <times/>
+                        <apply>
+                           <minus/>
+                           <cn cellml:units="per_millivolt">0.5</cn>
+                        </apply>
+                        <apply>
+                           <minus/>
+                           <ci>V</ci>
+                           <ci>E_K</ci>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>xK1_inf</ci>
+            <apply>
+               <divide/>
+               <ci>alpha_K1</ci>
+               <apply>
+                  <plus/>
+                  <ci>alpha_K1</ci>
+                  <ci>beta_K1</ci>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>i_K1</ci>
+            <apply>
+               <times/>
+               <ci>g_K1</ci>
+               <ci>xK1_inf</ci>
+               <apply>
+                  <root/>
+                  <apply>
+                     <divide/>
+                     <ci>K_o</ci>
+                     <cn cellml:units="millimolar">5.4</cn>
+                  </apply>
+               </apply>
+               <apply>
+                  <minus/>
+                  <ci>V</ci>
+                  <ci>E_K</ci>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="rapid_time_dependent_potassium_current">
+      <variable units="picoA_per_picoF" public_interface="out" name="i_Kr"/>
+      <variable units="nanoS_per_picoF" name="g_Kr" initial_value="0.153"/>
+      <variable units="millivolt" public_interface="in" name="E_K"/>
+      <variable units="millimolar" public_interface="in" name="K_o"/>
+      <variable units="millisecond" public_interface="in" private_interface="out" name="time"/>
+      <variable units="millivolt" public_interface="in" private_interface="out" name="V"/>
+      <variable units="dimensionless" private_interface="in" name="Xr1"/>
+      <variable units="dimensionless" private_interface="in" name="Xr2"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>i_Kr</ci>
+            <apply>
+               <times/>
+               <ci>g_Kr</ci>
+               <apply>
+                  <root/>
+                  <apply>
+                     <divide/>
+                     <ci>K_o</ci>
+                     <cn cellml:units="millimolar">5.4</cn>
+                  </apply>
+               </apply>
+               <ci>Xr1</ci>
+               <ci>Xr2</ci>
+               <apply>
+                  <minus/>
+                  <ci>V</ci>
+                  <ci>E_K</ci>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="rapid_time_dependent_potassium_current_Xr1_gate">
+      <variable units="dimensionless" public_interface="out" name="Xr1" initial_value="0.00621"/>
+      <variable units="millivolt" public_interface="in" name="V"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <variable units="dimensionless" name="xr1_inf"/>
+      <variable units="dimensionless" name="alpha_xr1"/>
+      <variable units="dimensionless" name="beta_xr1"/>
+      <variable units="millisecond" name="tau_xr1"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>xr1_inf</ci>
+            <apply>
+               <divide/>
+               <cn cellml:units="dimensionless">1</cn>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <minus/>
+                           <apply>
+                              <minus/>
+                              <cn cellml:units="millivolt">26</cn>
+                           </apply>
+                           <ci>V</ci>
+                        </apply>
+                        <cn cellml:units="millivolt">7</cn>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>alpha_xr1</ci>
+            <apply>
+               <divide/>
+               <cn cellml:units="dimensionless">450</cn>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <minus/>
+                           <apply>
+                              <minus/>
+                              <cn cellml:units="millivolt">45</cn>
+                           </apply>
+                           <ci>V</ci>
+                        </apply>
+                        <cn cellml:units="millivolt">10</cn>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>beta_xr1</ci>
+            <apply>
+               <divide/>
+               <cn cellml:units="dimensionless">6</cn>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <plus/>
+                           <ci>V</ci>
+                           <cn cellml:units="millivolt">30</cn>
+                        </apply>
+                        <cn cellml:units="millivolt">11.5</cn>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>tau_xr1</ci>
+            <apply>
+               <times/>
+               <cn cellml:units="millisecond">1</cn>
+               <ci>alpha_xr1</ci>
+               <ci>beta_xr1</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>Xr1</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <ci>xr1_inf</ci>
+                  <ci>Xr1</ci>
+               </apply>
+               <ci>tau_xr1</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="rapid_time_dependent_potassium_current_Xr2_gate">
+      <variable units="dimensionless" public_interface="out" name="Xr2" initial_value="0.4712"/>
+      <variable units="millivolt" public_interface="in" name="V"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <variable units="dimensionless" name="xr2_inf"/>
+      <variable units="dimensionless" name="alpha_xr2"/>
+      <variable units="dimensionless" name="beta_xr2"/>
+      <variable units="millisecond" name="tau_xr2"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>xr2_inf</ci>
+            <apply>
+               <divide/>
+               <cn cellml:units="dimensionless">1</cn>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <plus/>
+                           <ci>V</ci>
+                           <cn cellml:units="millivolt">88</cn>
+                        </apply>
+                        <cn cellml:units="millivolt">24</cn>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>alpha_xr2</ci>
+            <apply>
+               <divide/>
+               <cn cellml:units="dimensionless">3</cn>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <minus/>
+                           <apply>
+                              <minus/>
+                              <cn cellml:units="millivolt">60</cn>
+                           </apply>
+                           <ci>V</ci>
+                        </apply>
+                        <cn cellml:units="millivolt">20</cn>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>beta_xr2</ci>
+            <apply>
+               <divide/>
+               <cn cellml:units="dimensionless">1.12</cn>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <minus/>
+                           <ci>V</ci>
+                           <cn cellml:units="millivolt">60</cn>
+                        </apply>
+                        <cn cellml:units="millivolt">20</cn>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>tau_xr2</ci>
+            <apply>
+               <times/>
+               <cn cellml:units="millisecond">1</cn>
+               <ci>alpha_xr2</ci>
+               <ci>beta_xr2</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>Xr2</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <ci>xr2_inf</ci>
+                  <ci>Xr2</ci>
+               </apply>
+               <ci>tau_xr2</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="slow_time_dependent_potassium_current">
+      <variable units="picoA_per_picoF" public_interface="out" name="i_Ks"/>
+      <variable units="nanoS_per_picoF" name="g_Ks" initial_value="0.392"/>
+      <variable units="millivolt" public_interface="in" name="E_Ks"/>
+      <variable units="millisecond" public_interface="in" private_interface="out" name="time"/>
+      <variable units="millivolt" public_interface="in" private_interface="out" name="V"/>
+      <variable units="dimensionless" private_interface="in" name="Xs"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>i_Ks</ci>
+            <apply>
+               <times/>
+               <ci>g_Ks</ci>
+               <apply>
+                  <power/>
+                  <ci>Xs</ci>
+                  <cn cellml:units="dimensionless">2</cn>
+               </apply>
+               <apply>
+                  <minus/>
+                  <ci>V</ci>
+                  <ci>E_Ks</ci>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="slow_time_dependent_potassium_current_Xs_gate">
+      <variable units="dimensionless" public_interface="out" name="Xs" initial_value="0.0095"/>
+      <variable units="millivolt" public_interface="in" name="V"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <variable units="dimensionless" name="xs_inf"/>
+      <variable units="dimensionless" name="alpha_xs"/>
+      <variable units="dimensionless" name="beta_xs"/>
+      <variable units="millisecond" name="tau_xs"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>xs_inf</ci>
+            <apply>
+               <divide/>
+               <cn cellml:units="dimensionless">1</cn>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <minus/>
+                           <apply>
+                              <minus/>
+                              <cn cellml:units="millivolt">5</cn>
+                           </apply>
+                           <ci>V</ci>
+                        </apply>
+                        <cn cellml:units="millivolt">14</cn>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>alpha_xs</ci>
+            <apply>
+               <divide/>
+               <cn cellml:units="dimensionless">1400</cn>
+               <apply>
+                  <root/>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <exp/>
+                        <apply>
+                           <divide/>
+                           <apply>
+                              <minus/>
+                              <cn cellml:units="millivolt">5</cn>
+                              <ci>V</ci>
+                           </apply>
+                           <cn cellml:units="millivolt">6</cn>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>beta_xs</ci>
+            <apply>
+               <divide/>
+               <cn cellml:units="dimensionless">1</cn>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <minus/>
+                           <ci>V</ci>
+                           <cn cellml:units="millivolt">35</cn>
+                        </apply>
+                        <cn cellml:units="millivolt">15</cn>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>tau_xs</ci>
+            <apply>
+               <plus/>
+               <apply>
+                  <times/>
+                  <cn cellml:units="millisecond">1</cn>
+                  <ci>alpha_xs</ci>
+                  <ci>beta_xs</ci>
+               </apply>
+               <cn cellml:units="millisecond">80</cn>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>Xs</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <ci>xs_inf</ci>
+                  <ci>Xs</ci>
+               </apply>
+               <ci>tau_xs</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="fast_sodium_current">
+      <variable units="picoA_per_picoF" public_interface="out" name="i_Na"/>
+      <variable units="nanoS_per_picoF" name="g_Na" initial_value="14.838"/>
+      <variable units="millivolt" public_interface="in" name="E_Na"/>
+      <variable units="millisecond" public_interface="in" private_interface="out" name="time"/>
+      <variable units="millivolt" public_interface="in" private_interface="out" name="V"/>
+      <variable units="dimensionless" private_interface="in" name="m"/>
+      <variable units="dimensionless" private_interface="in" name="h"/>
+      <variable units="dimensionless" private_interface="in" name="j"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>i_Na</ci>
+            <apply>
+               <times/>
+               <ci>g_Na</ci>
+               <apply>
+                  <power/>
+                  <ci>m</ci>
+                  <cn cellml:units="dimensionless">3</cn>
+               </apply>
+               <ci>h</ci>
+               <ci>j</ci>
+               <apply>
+                  <minus/>
+                  <ci>V</ci>
+                  <ci>E_Na</ci>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="fast_sodium_current_m_gate">
+      <variable units="dimensionless" public_interface="out" name="m" initial_value="0.00172"/>
+      <variable units="millivolt" public_interface="in" name="V"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <variable units="dimensionless" name="m_inf"/>
+      <variable units="dimensionless" name="alpha_m"/>
+      <variable units="dimensionless" name="beta_m"/>
+      <variable units="millisecond" name="tau_m"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>m_inf</ci>
+            <apply>
+               <divide/>
+               <cn cellml:units="dimensionless">1</cn>
+               <apply>
+                  <power/>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <exp/>
+                        <apply>
+                           <divide/>
+                           <apply>
+                              <minus/>
+                              <apply>
+                                 <minus/>
+                                 <cn cellml:units="millivolt">56.86</cn>
+                              </apply>
+                              <ci>V</ci>
+                           </apply>
+                           <cn cellml:units="millivolt">9.03</cn>
+                        </apply>
+                     </apply>
+                  </apply>
+                  <cn cellml:units="dimensionless">2</cn>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>alpha_m</ci>
+            <apply>
+               <divide/>
+               <cn cellml:units="dimensionless">1</cn>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <minus/>
+                           <apply>
+                              <minus/>
+                              <cn cellml:units="millivolt">60</cn>
+                           </apply>
+                           <ci>V</ci>
+                        </apply>
+                        <cn cellml:units="millivolt">5</cn>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>beta_m</ci>
+            <apply>
+               <plus/>
+               <apply>
+                  <divide/>
+                  <cn cellml:units="dimensionless">0.1</cn>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <exp/>
+                        <apply>
+                           <divide/>
+                           <apply>
+                              <plus/>
+                              <ci>V</ci>
+                              <cn cellml:units="millivolt">35</cn>
+                           </apply>
+                           <cn cellml:units="millivolt">5</cn>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+               <apply>
+                  <divide/>
+                  <cn cellml:units="dimensionless">0.1</cn>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <exp/>
+                        <apply>
+                           <divide/>
+                           <apply>
+                              <minus/>
+                              <ci>V</ci>
+                              <cn cellml:units="millivolt">50</cn>
+                           </apply>
+                           <cn cellml:units="millivolt">200</cn>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>tau_m</ci>
+            <apply>
+               <times/>
+               <cn cellml:units="millisecond">1</cn>
+               <ci>alpha_m</ci>
+               <ci>beta_m</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>m</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <ci>m_inf</ci>
+                  <ci>m</ci>
+               </apply>
+               <ci>tau_m</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="fast_sodium_current_h_gate">
+      <variable units="dimensionless" public_interface="out" name="h" initial_value="0.7444"/>
+      <variable units="millivolt" public_interface="in" name="V"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <variable units="dimensionless" name="h_inf"/>
+      <variable units="per_millisecond" name="alpha_h"/>
+      <variable units="per_millisecond" name="beta_h"/>
+      <variable units="millisecond" name="tau_h"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>h_inf</ci>
+            <apply>
+               <divide/>
+               <cn cellml:units="dimensionless">1</cn>
+               <apply>
+                  <power/>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <exp/>
+                        <apply>
+                           <divide/>
+                           <apply>
+                              <plus/>
+                              <ci>V</ci>
+                              <cn cellml:units="millivolt">71.55</cn>
+                           </apply>
+                           <cn cellml:units="millivolt">7.43</cn>
+                        </apply>
+                     </apply>
+                  </apply>
+                  <cn cellml:units="dimensionless">2</cn>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>alpha_h</ci>
+            <piecewise>
+               <piece>
+                  <apply>
+                     <times/>
+                     <cn cellml:units="per_millisecond">0.057</cn>
+                     <apply>
+                        <exp/>
+                        <apply>
+                           <divide/>
+                           <apply>
+                              <minus/>
+                              <apply>
+                                 <plus/>
+                                 <ci>V</ci>
+                                 <cn cellml:units="millivolt">80</cn>
+                              </apply>
+                           </apply>
+                           <cn cellml:units="millivolt">6.8</cn>
+                        </apply>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <lt/>
+                     <ci>V</ci>
+                     <apply>
+                        <minus/>
+                        <cn cellml:units="millivolt">40</cn>
+                     </apply>
+                  </apply>
+               </piece>
+               <otherwise>
+                  <cn cellml:units="per_millisecond">0</cn>
+               </otherwise>
+            </piecewise>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>beta_h</ci>
+            <piecewise>
+               <piece>
+                  <apply>
+                     <plus/>
+                     <apply>
+                        <times/>
+                        <cn cellml:units="per_millisecond">2.7</cn>
+                        <apply>
+                           <exp/>
+                           <apply>
+                              <times/>
+                              <cn cellml:units="per_millivolt">0.079</cn>
+                              <ci>V</ci>
+                           </apply>
+                        </apply>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <cn cellml:units="per_millisecond">310000</cn>
+                        <apply>
+                           <exp/>
+                           <apply>
+                              <times/>
+                              <cn cellml:units="per_millivolt">0.3485</cn>
+                              <ci>V</ci>
+                           </apply>
+                        </apply>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <lt/>
+                     <ci>V</ci>
+                     <apply>
+                        <minus/>
+                        <cn cellml:units="millivolt">40</cn>
+                     </apply>
+                  </apply>
+               </piece>
+               <otherwise>
+                  <apply>
+                     <divide/>
+                     <cn cellml:units="per_millisecond">0.77</cn>
+                     <apply>
+                        <times/>
+                        <cn cellml:units="dimensionless">0.13</cn>
+                        <apply>
+                           <plus/>
+                           <cn cellml:units="dimensionless">1</cn>
+                           <apply>
+                              <exp/>
+                              <apply>
+                                 <divide/>
+                                 <apply>
+                                    <plus/>
+                                    <ci>V</ci>
+                                    <cn cellml:units="millivolt">10.66</cn>
+                                 </apply>
+                                 <apply>
+                                    <minus/>
+                                    <cn cellml:units="millivolt">11.1</cn>
+                                 </apply>
+                              </apply>
+                           </apply>
+                        </apply>
+                     </apply>
+                  </apply>
+               </otherwise>
+            </piecewise>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>tau_h</ci>
+            <apply>
+               <divide/>
+               <cn cellml:units="dimensionless">1</cn>
+               <apply>
+                  <plus/>
+                  <ci>alpha_h</ci>
+                  <ci>beta_h</ci>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>h</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <ci>h_inf</ci>
+                  <ci>h</ci>
+               </apply>
+               <ci>tau_h</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="fast_sodium_current_j_gate">
+      <variable units="dimensionless" public_interface="out" name="j" initial_value="0.7045"/>
+      <variable units="millivolt" public_interface="in" name="V"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <variable units="dimensionless" name="j_inf"/>
+      <variable units="per_millisecond" name="alpha_j"/>
+      <variable units="per_millisecond" name="beta_j"/>
+      <variable units="millisecond" name="tau_j"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>j_inf</ci>
+            <apply>
+               <divide/>
+               <cn cellml:units="dimensionless">1</cn>
+               <apply>
+                  <power/>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <exp/>
+                        <apply>
+                           <divide/>
+                           <apply>
+                              <plus/>
+                              <ci>V</ci>
+                              <cn cellml:units="millivolt">71.55</cn>
+                           </apply>
+                           <cn cellml:units="millivolt">7.43</cn>
+                        </apply>
+                     </apply>
+                  </apply>
+                  <cn cellml:units="dimensionless">2</cn>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>alpha_j</ci>
+            <piecewise>
+               <piece>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <apply>
+                              <minus/>
+                              <apply>
+                                 <times/>
+                                 <apply>
+                                    <minus/>
+                                    <cn cellml:units="per_millisecond">25428</cn>
+                                 </apply>
+                                 <apply>
+                                    <exp/>
+                                    <apply>
+                                       <times/>
+                                       <cn cellml:units="per_millivolt">0.2444</cn>
+                                       <ci>V</ci>
+                                    </apply>
+                                 </apply>
+                              </apply>
+                              <apply>
+                                 <times/>
+                                 <cn cellml:units="per_millisecond">6.948e-6</cn>
+                                 <apply>
+                                    <exp/>
+                                    <apply>
+                                       <times/>
+                                       <apply>
+                                          <minus/>
+                                          <cn cellml:units="per_millivolt">0.04391</cn>
+                                       </apply>
+                                       <ci>V</ci>
+                                    </apply>
+                                 </apply>
+                              </apply>
+                           </apply>
+                           <apply>
+                              <plus/>
+                              <ci>V</ci>
+                              <cn cellml:units="millivolt">37.78</cn>
+                           </apply>
+                        </apply>
+                        <cn cellml:units="millivolt">1</cn>
+                     </apply>
+                     <apply>
+                        <plus/>
+                        <cn cellml:units="dimensionless">1</cn>
+                        <apply>
+                           <exp/>
+                           <apply>
+                              <times/>
+                              <cn cellml:units="per_millivolt">0.311</cn>
+                              <apply>
+                                 <plus/>
+                                 <ci>V</ci>
+                                 <cn cellml:units="millivolt">79.23</cn>
+                              </apply>
+                           </apply>
+                        </apply>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <lt/>
+                     <ci>V</ci>
+                     <apply>
+                        <minus/>
+                        <cn cellml:units="millivolt">40</cn>
+                     </apply>
+                  </apply>
+               </piece>
+               <otherwise>
+                  <cn cellml:units="per_millisecond">0</cn>
+               </otherwise>
+            </piecewise>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>beta_j</ci>
+            <piecewise>
+               <piece>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <cn cellml:units="per_millisecond">0.02424</cn>
+                        <apply>
+                           <exp/>
+                           <apply>
+                              <times/>
+                              <apply>
+                                 <minus/>
+                                 <cn cellml:units="per_millivolt">0.01052</cn>
+                              </apply>
+                              <ci>V</ci>
+                           </apply>
+                        </apply>
+                     </apply>
+                     <apply>
+                        <plus/>
+                        <cn cellml:units="dimensionless">1</cn>
+                        <apply>
+                           <exp/>
+                           <apply>
+                              <times/>
+                              <apply>
+                                 <minus/>
+                                 <cn cellml:units="per_millivolt">0.1378</cn>
+                              </apply>
+                              <apply>
+                                 <plus/>
+                                 <ci>V</ci>
+                                 <cn cellml:units="millivolt">40.14</cn>
+                              </apply>
+                           </apply>
+                        </apply>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <lt/>
+                     <ci>V</ci>
+                     <apply>
+                        <minus/>
+                        <cn cellml:units="millivolt">40</cn>
+                     </apply>
+                  </apply>
+               </piece>
+               <otherwise>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <cn cellml:units="per_millisecond">0.6</cn>
+                        <apply>
+                           <exp/>
+                           <apply>
+                              <times/>
+                              <cn cellml:units="per_millivolt">0.057</cn>
+                              <ci>V</ci>
+                           </apply>
+                        </apply>
+                     </apply>
+                     <apply>
+                        <plus/>
+                        <cn cellml:units="dimensionless">1</cn>
+                        <apply>
+                           <exp/>
+                           <apply>
+                              <times/>
+                              <apply>
+                                 <minus/>
+                                 <cn cellml:units="per_millivolt">0.1</cn>
+                              </apply>
+                              <apply>
+                                 <plus/>
+                                 <ci>V</ci>
+                                 <cn cellml:units="millivolt">32</cn>
+                              </apply>
+                           </apply>
+                        </apply>
+                     </apply>
+                  </apply>
+               </otherwise>
+            </piecewise>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>tau_j</ci>
+            <apply>
+               <divide/>
+               <cn cellml:units="dimensionless">1</cn>
+               <apply>
+                  <plus/>
+                  <ci>alpha_j</ci>
+                  <ci>beta_j</ci>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>j</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <ci>j_inf</ci>
+                  <ci>j</ci>
+               </apply>
+               <ci>tau_j</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="sodium_background_current">
+      <variable units="picoA_per_picoF" public_interface="out" name="i_b_Na"/>
+      <variable units="nanoS_per_picoF" name="g_bna" initial_value="0.00029"/>
+      <variable units="millivolt" public_interface="in" name="E_Na"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <variable units="millivolt" public_interface="in" name="V"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>i_b_Na</ci>
+            <apply>
+               <times/>
+               <ci>g_bna</ci>
+               <apply>
+                  <minus/>
+                  <ci>V</ci>
+                  <ci>E_Na</ci>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="L_type_Ca_current">
+      <variable units="picoA_per_picoF" public_interface="out" name="i_CaL"/>
+      <variable units="litre_per_farad_second" name="g_CaL" initial_value="0.0000398"/>
+      <variable units="millimolar" public_interface="in" name="Ca_o"/>
+      <variable units="millimolar" public_interface="in" private_interface="out" name="Ca_ss"/>
+      <variable units="joule_per_mole_kelvin" public_interface="in" name="R"/>
+      <variable units="coulomb_per_millimole" public_interface="in" name="F"/>
+      <variable units="kelvin" public_interface="in" name="T"/>
+      <variable units="millisecond" public_interface="in" private_interface="out" name="time"/>
+      <variable units="millivolt" public_interface="in" private_interface="out" name="V"/>
+      <variable units="dimensionless" public_interface="out" private_interface="in" name="d"/>
+      <variable units="dimensionless" private_interface="in" name="f"/>
+      <variable units="dimensionless" private_interface="in" name="f2"/>
+      <variable units="dimensionless" private_interface="in" name="fCass"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>i_CaL</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <times/>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>g_CaL</ci>
+                        <ci>d</ci>
+                        <ci>f</ci>
+                        <ci>f2</ci>
+                        <ci>fCass</ci>
+                        <cn cellml:units="dimensionless">4</cn>
+                        <apply>
+                           <minus/>
+                           <ci>V</ci>
+                           <cn cellml:units="millivolt">15</cn>
+                        </apply>
+                        <apply>
+                           <power/>
+                           <ci>F</ci>
+                           <cn cellml:units="dimensionless">2</cn>
+                        </apply>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>R</ci>
+                        <ci>T</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <times/>
+                        <cn cellml:units="dimensionless">0.25</cn>
+                        <ci>Ca_ss</ci>
+                        <apply>
+                           <exp/>
+                           <apply>
+                              <divide/>
+                              <apply>
+                                 <times/>
+                                 <cn cellml:units="dimensionless">2</cn>
+                                 <apply>
+                                    <minus/>
+                                    <ci>V</ci>
+                                    <cn cellml:units="millivolt">15</cn>
+                                 </apply>
+                                 <ci>F</ci>
+                              </apply>
+                              <apply>
+                                 <times/>
+                                 <ci>R</ci>
+                                 <ci>T</ci>
+                              </apply>
+                           </apply>
+                        </apply>
+                     </apply>
+                     <ci>Ca_o</ci>
+                  </apply>
+               </apply>
+               <apply>
+                  <minus/>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <cn cellml:units="dimensionless">2</cn>
+                           <apply>
+                              <minus/>
+                              <ci>V</ci>
+                              <cn cellml:units="millivolt">15</cn>
+                           </apply>
+                           <ci>F</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <ci>R</ci>
+                           <ci>T</ci>
+                        </apply>
+                     </apply>
+                  </apply>
+                  <cn cellml:units="dimensionless">1</cn>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="L_type_Ca_current_d_gate">
+      <variable units="dimensionless" public_interface="out" name="d" initial_value="3.373e-5"/>
+      <variable units="millivolt" public_interface="in" name="V"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <variable units="dimensionless" name="d_inf"/>
+      <variable units="dimensionless" name="alpha_d"/>
+      <variable units="dimensionless" name="beta_d"/>
+      <variable units="millisecond" name="gamma_d"/>
+      <variable units="millisecond" name="tau_d"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>d_inf</ci>
+            <apply>
+               <divide/>
+               <cn cellml:units="dimensionless">1</cn>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <minus/>
+                           <apply>
+                              <minus/>
+                              <cn cellml:units="millivolt">8</cn>
+                           </apply>
+                           <ci>V</ci>
+                        </apply>
+                        <cn cellml:units="millivolt">7.5</cn>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>alpha_d</ci>
+            <apply>
+               <plus/>
+               <apply>
+                  <divide/>
+                  <cn cellml:units="dimensionless">1.4</cn>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <exp/>
+                        <apply>
+                           <divide/>
+                           <apply>
+                              <minus/>
+                              <apply>
+                                 <minus/>
+                                 <cn cellml:units="millivolt">35</cn>
+                              </apply>
+                              <ci>V</ci>
+                           </apply>
+                           <cn cellml:units="millivolt">13</cn>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+               <cn cellml:units="dimensionless">0.25</cn>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>beta_d</ci>
+            <apply>
+               <divide/>
+               <cn cellml:units="dimensionless">1.4</cn>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <plus/>
+                           <ci>V</ci>
+                           <cn cellml:units="millivolt">5</cn>
+                        </apply>
+                        <cn cellml:units="millivolt">5</cn>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>gamma_d</ci>
+            <apply>
+               <divide/>
+               <cn cellml:units="millisecond">1</cn>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <minus/>
+                           <cn cellml:units="millivolt">50</cn>
+                           <ci>V</ci>
+                        </apply>
+                        <cn cellml:units="millivolt">20</cn>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>tau_d</ci>
+            <apply>
+               <plus/>
+               <apply>
+                  <times/>
+                  <cn cellml:units="millisecond">1</cn>
+                  <ci>alpha_d</ci>
+                  <ci>beta_d</ci>
+               </apply>
+               <ci>gamma_d</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>d</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <ci>d_inf</ci>
+                  <ci>d</ci>
+               </apply>
+               <ci>tau_d</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="L_type_Ca_current_f_gate">
+      <variable units="dimensionless" public_interface="out" name="f" initial_value="0.7888"/>
+      <variable units="millivolt" public_interface="in" name="V"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <variable units="dimensionless" name="f_inf"/>
+      <variable units="millisecond" name="tau_f"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>f_inf</ci>
+            <apply>
+               <divide/>
+               <cn cellml:units="dimensionless">1</cn>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <plus/>
+                           <ci>V</ci>
+                           <cn cellml:units="millivolt">20</cn>
+                        </apply>
+                        <cn cellml:units="millivolt">7</cn>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>tau_f</ci>
+            <apply>
+               <plus/>
+               <apply>
+                  <times/>
+                  <cn cellml:units="millisecond">1102.5</cn>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <minus/>
+                           <apply>
+                              <power/>
+                              <apply>
+                                 <plus/>
+                                 <ci>V</ci>
+                                 <cn cellml:units="millivolt">27</cn>
+                              </apply>
+                              <cn cellml:units="dimensionless">2</cn>
+                           </apply>
+                        </apply>
+                        <cn cellml:units="millivolt_square">225</cn>
+                     </apply>
+                  </apply>
+               </apply>
+               <apply>
+                  <divide/>
+                  <cn cellml:units="millisecond">200</cn>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <exp/>
+                        <apply>
+                           <divide/>
+                           <apply>
+                              <minus/>
+                              <cn cellml:units="millivolt">13</cn>
+                              <ci>V</ci>
+                           </apply>
+                           <cn cellml:units="millivolt">10</cn>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+               <apply>
+                  <divide/>
+                  <cn cellml:units="millisecond">180</cn>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <exp/>
+                        <apply>
+                           <divide/>
+                           <apply>
+                              <plus/>
+                              <ci>V</ci>
+                              <cn cellml:units="millivolt">30</cn>
+                           </apply>
+                           <cn cellml:units="millivolt">10</cn>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+               <cn cellml:units="millisecond">20</cn>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>f</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <ci>f_inf</ci>
+                  <ci>f</ci>
+               </apply>
+               <ci>tau_f</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="L_type_Ca_current_f2_gate">
+      <variable units="dimensionless" public_interface="out" name="f2" initial_value="0.9755"/>
+      <variable units="millivolt" public_interface="in" name="V"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <variable units="dimensionless" name="f2_inf"/>
+      <variable units="millisecond" name="tau_f2"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>f2_inf</ci>
+            <apply>
+               <plus/>
+               <apply>
+                  <divide/>
+                  <cn cellml:units="dimensionless">0.67</cn>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <exp/>
+                        <apply>
+                           <divide/>
+                           <apply>
+                              <plus/>
+                              <ci>V</ci>
+                              <cn cellml:units="millivolt">35</cn>
+                           </apply>
+                           <cn cellml:units="millivolt">7</cn>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+               <cn cellml:units="dimensionless">0.33</cn>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>tau_f2</ci>
+            <apply>
+               <plus/>
+               <apply>
+                  <times/>
+                  <cn cellml:units="millisecond">562</cn>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <minus/>
+                           <apply>
+                              <power/>
+                              <apply>
+                                 <plus/>
+                                 <ci>V</ci>
+                                 <cn cellml:units="millivolt">27</cn>
+                              </apply>
+                              <cn cellml:units="dimensionless">2</cn>
+                           </apply>
+                        </apply>
+                        <cn cellml:units="millivolt_square">240</cn>
+                     </apply>
+                  </apply>
+               </apply>
+               <apply>
+                  <divide/>
+                  <cn cellml:units="millisecond">31</cn>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <exp/>
+                        <apply>
+                           <divide/>
+                           <apply>
+                              <minus/>
+                              <cn cellml:units="millivolt">25</cn>
+                              <ci>V</ci>
+                           </apply>
+                           <cn cellml:units="millivolt">10</cn>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+               <apply>
+                  <divide/>
+                  <cn cellml:units="millisecond">80</cn>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <exp/>
+                        <apply>
+                           <divide/>
+                           <apply>
+                              <plus/>
+                              <ci>V</ci>
+                              <cn cellml:units="millivolt">30</cn>
+                           </apply>
+                           <cn cellml:units="millivolt">10</cn>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>f2</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <ci>f2_inf</ci>
+                  <ci>f2</ci>
+               </apply>
+               <ci>tau_f2</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="L_type_Ca_current_fCass_gate">
+      <variable units="dimensionless" public_interface="out" name="fCass" initial_value="0.9953"/>
+      <variable units="millimolar" public_interface="in" name="Ca_ss"/>
+      <variable units="millivolt" public_interface="in" name="V"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <variable units="dimensionless" name="fCass_inf"/>
+      <variable units="millisecond" name="tau_fCass"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>fCass_inf</ci>
+            <apply>
+               <plus/>
+               <apply>
+                  <divide/>
+                  <cn cellml:units="dimensionless">0.6</cn>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <power/>
+                        <apply>
+                           <divide/>
+                           <ci>Ca_ss</ci>
+                           <cn cellml:units="millimolar">0.05</cn>
+                        </apply>
+                        <cn cellml:units="dimensionless">2</cn>
+                     </apply>
+                  </apply>
+               </apply>
+               <cn cellml:units="dimensionless">0.4</cn>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>tau_fCass</ci>
+            <apply>
+               <plus/>
+               <apply>
+                  <divide/>
+                  <cn cellml:units="millisecond">80</cn>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <power/>
+                        <apply>
+                           <divide/>
+                           <ci>Ca_ss</ci>
+                           <cn cellml:units="millimolar">0.05</cn>
+                        </apply>
+                        <cn cellml:units="dimensionless">2</cn>
+                     </apply>
+                  </apply>
+               </apply>
+               <cn cellml:units="millisecond">2</cn>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>fCass</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <ci>fCass_inf</ci>
+                  <ci>fCass</ci>
+               </apply>
+               <ci>tau_fCass</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="calcium_background_current">
+      <variable units="picoA_per_picoF" public_interface="out" name="i_b_Ca"/>
+      <variable units="nanoS_per_picoF" name="g_bca" initial_value="0.000592"/>
+      <variable units="millivolt" public_interface="in" name="E_Ca"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <variable units="millivolt" public_interface="in" name="V"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>i_b_Ca</ci>
+            <apply>
+               <times/>
+               <ci>g_bca</ci>
+               <apply>
+                  <minus/>
+                  <ci>V</ci>
+                  <ci>E_Ca</ci>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="transient_outward_current">
+      <variable units="picoA_per_picoF" public_interface="out" name="i_to"/>
+      <variable units="nanoS_per_picoF" name="g_to" initial_value="0.294"/>
+      <variable units="millivolt" public_interface="in" name="E_K"/>
+      <variable units="millivolt" public_interface="in" private_interface="out" name="V"/>
+      <variable units="millisecond" public_interface="in" private_interface="out" name="time"/>
+      <variable units="dimensionless" private_interface="in" name="s"/>
+      <variable units="dimensionless" private_interface="in" name="r"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>i_to</ci>
+            <apply>
+               <times/>
+               <ci>g_to</ci>
+               <ci>r</ci>
+               <ci>s</ci>
+               <apply>
+                  <minus/>
+                  <ci>V</ci>
+                  <ci>E_K</ci>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="transient_outward_current_s_gate">
+      <variable units="dimensionless" public_interface="out" name="s" initial_value="0.999998"/>
+      <variable units="millivolt" public_interface="in" name="V"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <variable units="dimensionless" name="s_inf"/>
+      <variable units="millisecond" name="tau_s"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>s_inf</ci>
+            <apply>
+               <divide/>
+               <cn cellml:units="dimensionless">1</cn>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <plus/>
+                           <ci>V</ci>
+                           <cn cellml:units="millivolt">20</cn>
+                        </apply>
+                        <cn cellml:units="millivolt">5</cn>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>tau_s</ci>
+            <apply>
+               <plus/>
+               <apply>
+                  <times/>
+                  <cn cellml:units="millisecond">85</cn>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <minus/>
+                           <apply>
+                              <power/>
+                              <apply>
+                                 <plus/>
+                                 <ci>V</ci>
+                                 <cn cellml:units="millivolt">45</cn>
+                              </apply>
+                              <cn cellml:units="dimensionless">2</cn>
+                           </apply>
+                        </apply>
+                        <cn cellml:units="millivolt_square">320</cn>
+                     </apply>
+                  </apply>
+               </apply>
+               <apply>
+                  <divide/>
+                  <cn cellml:units="millisecond">5</cn>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <exp/>
+                        <apply>
+                           <divide/>
+                           <apply>
+                              <minus/>
+                              <ci>V</ci>
+                              <cn cellml:units="millivolt">20</cn>
+                           </apply>
+                           <cn cellml:units="millivolt">5</cn>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+               <cn cellml:units="millisecond">3</cn>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>s</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <ci>s_inf</ci>
+                  <ci>s</ci>
+               </apply>
+               <ci>tau_s</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="transient_outward_current_r_gate">
+      <variable units="dimensionless" public_interface="out" name="r" initial_value="2.42e-8"/>
+      <variable units="millivolt" public_interface="in" name="V"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <variable units="dimensionless" name="r_inf"/>
+      <variable units="millisecond" name="tau_r"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>r_inf</ci>
+            <apply>
+               <divide/>
+               <cn cellml:units="dimensionless">1</cn>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <minus/>
+                           <cn cellml:units="millivolt">20</cn>
+                           <ci>V</ci>
+                        </apply>
+                        <cn cellml:units="millivolt">6</cn>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>tau_r</ci>
+            <apply>
+               <plus/>
+               <apply>
+                  <times/>
+                  <cn cellml:units="millisecond">9.5</cn>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <minus/>
+                           <apply>
+                              <power/>
+                              <apply>
+                                 <plus/>
+                                 <ci>V</ci>
+                                 <cn cellml:units="millivolt">40</cn>
+                              </apply>
+                              <cn cellml:units="dimensionless">2</cn>
+                           </apply>
+                        </apply>
+                        <cn cellml:units="millivolt_square">1800</cn>
+                     </apply>
+                  </apply>
+               </apply>
+               <cn cellml:units="millisecond">0.8</cn>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>r</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <ci>r_inf</ci>
+                  <ci>r</ci>
+               </apply>
+               <ci>tau_r</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="sodium_potassium_pump_current">
+      <variable units="picoA_per_picoF" public_interface="out" name="i_NaK"/>
+      <variable units="picoA_per_picoF" name="P_NaK" initial_value="2.724"/>
+      <variable units="millimolar" name="K_mk" initial_value="1"/>
+      <variable units="millimolar" name="K_mNa" initial_value="40"/>
+      <variable units="millimolar" public_interface="in" name="K_o"/>
+      <variable units="millimolar" public_interface="in" name="Na_i"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <variable units="joule_per_mole_kelvin" public_interface="in" name="R"/>
+      <variable units="coulomb_per_millimole" public_interface="in" name="F"/>
+      <variable units="kelvin" public_interface="in" name="T"/>
+      <variable units="millivolt" public_interface="in" private_interface="out" name="V"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>i_NaK</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <divide/>
+                  <apply>
+                     <times/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <ci>P_NaK</ci>
+                           <ci>K_o</ci>
+                        </apply>
+                        <apply>
+                           <plus/>
+                           <ci>K_o</ci>
+                           <ci>K_mk</ci>
+                        </apply>
+                     </apply>
+                     <ci>Na_i</ci>
+                  </apply>
+                  <apply>
+                     <plus/>
+                     <ci>Na_i</ci>
+                     <ci>K_mNa</ci>
+                  </apply>
+               </apply>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <times/>
+                     <cn cellml:units="dimensionless">0.1245</cn>
+                     <apply>
+                        <exp/>
+                        <apply>
+                           <divide/>
+                           <apply>
+                              <times/>
+                              <apply>
+                                 <minus/>
+                                 <cn cellml:units="dimensionless">0.1</cn>
+                              </apply>
+                              <ci>V</ci>
+                              <ci>F</ci>
+                           </apply>
+                           <apply>
+                              <times/>
+                              <ci>R</ci>
+                              <ci>T</ci>
+                           </apply>
+                        </apply>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <times/>
+                     <cn cellml:units="dimensionless">0.0353</cn>
+                     <apply>
+                        <exp/>
+                        <apply>
+                           <divide/>
+                           <apply>
+                              <times/>
+                              <apply>
+                                 <minus/>
+                                 <ci>V</ci>
+                              </apply>
+                              <ci>F</ci>
+                           </apply>
+                           <apply>
+                              <times/>
+                              <ci>R</ci>
+                              <ci>T</ci>
+                           </apply>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="sodium_calcium_exchanger_current">
+      <variable units="picoA_per_picoF" public_interface="out" name="i_NaCa"/>
+      <variable units="picoA_per_picoF" name="K_NaCa" initial_value="1000"/>
+      <variable units="dimensionless" name="K_sat" initial_value="0.1"/>
+      <variable units="dimensionless" name="alpha" initial_value="2.5"/>
+      <variable units="dimensionless" name="gamma" initial_value="0.35"/>
+      <variable units="millimolar" name="Km_Ca" initial_value="1.38"/>
+      <variable units="millimolar" name="Km_Nai" initial_value="87.5"/>
+      <variable units="millimolar" public_interface="in" name="Na_i"/>
+      <variable units="millimolar" public_interface="in" name="Na_o"/>
+      <variable units="millimolar" public_interface="in" name="Ca_i"/>
+      <variable units="millimolar" public_interface="in" name="Ca_o"/>
+      <variable units="joule_per_mole_kelvin" public_interface="in" name="R"/>
+      <variable units="coulomb_per_millimole" public_interface="in" name="F"/>
+      <variable units="kelvin" public_interface="in" name="T"/>
+      <variable units="millivolt" public_interface="in" name="V"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>i_NaCa</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <times/>
+                  <ci>K_NaCa</ci>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <times/>
+                        <apply>
+                           <exp/>
+                           <apply>
+                              <divide/>
+                              <apply>
+                                 <times/>
+                                 <ci>gamma</ci>
+                                 <ci>V</ci>
+                                 <ci>F</ci>
+                              </apply>
+                              <apply>
+                                 <times/>
+                                 <ci>R</ci>
+                                 <ci>T</ci>
+                              </apply>
+                           </apply>
+                        </apply>
+                        <apply>
+                           <power/>
+                           <ci>Na_i</ci>
+                           <cn cellml:units="dimensionless">3</cn>
+                        </apply>
+                        <ci>Ca_o</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <apply>
+                           <exp/>
+                           <apply>
+                              <divide/>
+                              <apply>
+                                 <times/>
+                                 <apply>
+                                    <minus/>
+                                    <ci>gamma</ci>
+                                    <cn cellml:units="dimensionless">1</cn>
+                                 </apply>
+                                 <ci>V</ci>
+                                 <ci>F</ci>
+                              </apply>
+                              <apply>
+                                 <times/>
+                                 <ci>R</ci>
+                                 <ci>T</ci>
+                              </apply>
+                           </apply>
+                        </apply>
+                        <apply>
+                           <power/>
+                           <ci>Na_o</ci>
+                           <cn cellml:units="dimensionless">3</cn>
+                        </apply>
+                        <ci>Ca_i</ci>
+                        <ci>alpha</ci>
+                     </apply>
+                  </apply>
+               </apply>
+               <apply>
+                  <times/>
+                  <apply>
+                     <plus/>
+                     <apply>
+                        <power/>
+                        <ci>Km_Nai</ci>
+                        <cn cellml:units="dimensionless">3</cn>
+                     </apply>
+                     <apply>
+                        <power/>
+                        <ci>Na_o</ci>
+                        <cn cellml:units="dimensionless">3</cn>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <plus/>
+                     <ci>Km_Ca</ci>
+                     <ci>Ca_o</ci>
+                  </apply>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <times/>
+                        <ci>K_sat</ci>
+                        <apply>
+                           <exp/>
+                           <apply>
+                              <divide/>
+                              <apply>
+                                 <times/>
+                                 <apply>
+                                    <minus/>
+                                    <ci>gamma</ci>
+                                    <cn cellml:units="dimensionless">1</cn>
+                                 </apply>
+                                 <ci>V</ci>
+                                 <ci>F</ci>
+                              </apply>
+                              <apply>
+                                 <times/>
+                                 <ci>R</ci>
+                                 <ci>T</ci>
+                              </apply>
+                           </apply>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="calcium_pump_current">
+      <variable units="picoA_per_picoF" public_interface="out" name="i_p_Ca"/>
+      <variable units="picoA_per_picoF" name="g_pCa" initial_value="0.1238"/>
+      <variable units="millimolar" name="K_pCa" initial_value="0.0005"/>
+      <variable units="millimolar" public_interface="in" name="Ca_i"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>i_p_Ca</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <times/>
+                  <ci>g_pCa</ci>
+                  <ci>Ca_i</ci>
+               </apply>
+               <apply>
+                  <plus/>
+                  <ci>Ca_i</ci>
+                  <ci>K_pCa</ci>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="potassium_pump_current">
+      <variable units="picoA_per_picoF" public_interface="out" name="i_p_K"/>
+      <variable units="nanoS_per_picoF" name="g_pK" initial_value="0.0146"/>
+      <variable units="millivolt" public_interface="in" name="E_K"/>
+      <variable units="millivolt" public_interface="in" name="V"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>i_p_K</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <times/>
+                  <ci>g_pK</ci>
+                  <apply>
+                     <minus/>
+                     <ci>V</ci>
+                     <ci>E_K</ci>
+                  </apply>
+               </apply>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <minus/>
+                           <cn cellml:units="millivolt">25</cn>
+                           <ci>V</ci>
+                        </apply>
+                        <cn cellml:units="millivolt">5.98</cn>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="calcium_dynamics">
+      <variable units="millimolar" public_interface="out" name="Ca_i" initial_value="0.000126"/>
+      <variable units="millimolar" public_interface="out" name="Ca_o" initial_value="2"/>
+      <variable units="millimolar" name="Ca_SR" initial_value="3.64"/>
+      <variable units="millimolar" public_interface="out" name="Ca_ss" initial_value="0.00036"/>
+      <variable units="millimolar_per_millisecond" name="i_rel"/>
+      <variable units="millimolar_per_millisecond" name="i_up"/>
+      <variable units="millimolar_per_millisecond" name="i_leak"/>
+      <variable units="millimolar_per_millisecond" name="i_xfer"/>
+      <variable units="dimensionless" name="O"/>
+      <variable units="dimensionless" name="R_prime" initial_value="0.9073"/>
+      <variable units="per_millimolar2_per_millisecond" name="k1"/>
+      <variable units="per_millimolar_per_millisecond" name="k2"/>
+      <variable units="per_millimolar2_per_millisecond" name="k1_prime" initial_value="0.15"/>
+      <variable units="per_millimolar_per_millisecond" name="k2_prime" initial_value="0.045"/>
+      <variable units="per_millisecond" name="k3" initial_value="0.06"/>
+      <variable units="per_millisecond" name="k4" initial_value="0.005"/>
+      <variable units="millimolar" name="EC" initial_value="1.5"/>
+      <variable units="dimensionless" name="max_sr" initial_value="2.5"/>
+      <variable units="dimensionless" name="min_sr" initial_value="1"/>
+      <variable units="dimensionless" name="kcasr"/>
+      <variable units="per_millisecond" name="V_rel" initial_value="0.102"/>
+      <variable units="per_millisecond" name="V_xfer" initial_value="0.0038"/>
+      <variable units="millimolar" name="K_up" initial_value="0.00025"/>
+      <variable units="per_millisecond" name="V_leak" initial_value="0.00036"/>
+      <variable units="millimolar_per_millisecond" name="Vmax_up" initial_value="0.006375"/>
+      <variable units="dimensionless" name="Ca_i_bufc"/>
+      <variable units="dimensionless" name="Ca_sr_bufsr"/>
+      <variable units="dimensionless" name="Ca_ss_bufss"/>
+      <variable units="millimolar" name="Buf_c" initial_value="0.2"/>
+      <variable units="millimolar" name="K_buf_c" initial_value="0.001"/>
+      <variable units="millimolar" name="Buf_sr" initial_value="10"/>
+      <variable units="millimolar" name="K_buf_sr" initial_value="0.3"/>
+      <variable units="millimolar" name="Buf_ss" initial_value="0.4"/>
+      <variable units="millimolar" name="K_buf_ss" initial_value="0.00025"/>
+      <variable units="micrometre3" name="V_sr" initial_value="0.001094"/>
+      <variable units="micrometre3" name="V_ss" initial_value="0.00005468"/>
+      <variable units="millivolt" public_interface="in" name="V"/>
+      <variable units="micrometre3" public_interface="in" name="V_c"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <variable units="dimensionless" public_interface="in" name="d"/>
+      <variable units="coulomb_per_millimole" public_interface="in" name="F"/>
+      <variable units="microF" public_interface="in" name="Cm"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="i_CaL"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="i_NaCa"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="i_p_Ca"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="i_b_Ca"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>i_rel</ci>
+            <apply>
+               <times/>
+               <ci>V_rel</ci>
+               <ci>O</ci>
+               <apply>
+                  <minus/>
+                  <ci>Ca_SR</ci>
+                  <ci>Ca_ss</ci>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>i_up</ci>
+            <apply>
+               <divide/>
+               <ci>Vmax_up</ci>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <power/>
+                        <ci>K_up</ci>
+                        <cn cellml:units="dimensionless">2</cn>
+                     </apply>
+                     <apply>
+                        <power/>
+                        <ci>Ca_i</ci>
+                        <cn cellml:units="dimensionless">2</cn>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>i_leak</ci>
+            <apply>
+               <times/>
+               <ci>V_leak</ci>
+               <apply>
+                  <minus/>
+                  <ci>Ca_SR</ci>
+                  <ci>Ca_i</ci>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>i_xfer</ci>
+            <apply>
+               <times/>
+               <ci>V_xfer</ci>
+               <apply>
+                  <minus/>
+                  <ci>Ca_ss</ci>
+                  <ci>Ca_i</ci>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>O</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <times/>
+                  <ci>k1</ci>
+                  <apply>
+                     <power/>
+                     <ci>Ca_ss</ci>
+                     <cn cellml:units="dimensionless">2</cn>
+                  </apply>
+                  <ci>R_prime</ci>
+               </apply>
+               <apply>
+                  <plus/>
+                  <ci>k3</ci>
+                  <apply>
+                     <times/>
+                     <ci>k1</ci>
+                     <apply>
+                        <power/>
+                        <ci>Ca_ss</ci>
+                        <cn cellml:units="dimensionless">2</cn>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>R_prime</ci>
+            </apply>
+            <apply>
+               <plus/>
+               <apply>
+                  <times/>
+                  <apply>
+                     <minus/>
+                     <ci>k2</ci>
+                  </apply>
+                  <ci>Ca_ss</ci>
+                  <ci>R_prime</ci>
+               </apply>
+               <apply>
+                  <times/>
+                  <ci>k4</ci>
+                  <apply>
+                     <minus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <ci>R_prime</ci>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>k1</ci>
+            <apply>
+               <divide/>
+               <ci>k1_prime</ci>
+               <ci>kcasr</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>k2</ci>
+            <apply>
+               <times/>
+               <ci>k2_prime</ci>
+               <ci>kcasr</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>kcasr</ci>
+            <apply>
+               <minus/>
+               <ci>max_sr</ci>
+               <apply>
+                  <divide/>
+                  <apply>
+                     <minus/>
+                     <ci>max_sr</ci>
+                     <ci>min_sr</ci>
+                  </apply>
+                  <apply>
+                     <plus/>
+                     <cn cellml:units="dimensionless">1</cn>
+                     <apply>
+                        <power/>
+                        <apply>
+                           <divide/>
+                           <ci>EC</ci>
+                           <ci>Ca_SR</ci>
+                        </apply>
+                        <cn cellml:units="dimensionless">2</cn>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>Ca_i_bufc</ci>
+            <apply>
+               <divide/>
+               <cn cellml:units="dimensionless">1</cn>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>Buf_c</ci>
+                        <ci>K_buf_c</ci>
+                     </apply>
+                     <apply>
+                        <power/>
+                        <apply>
+                           <plus/>
+                           <ci>Ca_i</ci>
+                           <ci>K_buf_c</ci>
+                        </apply>
+                        <cn cellml:units="dimensionless">2</cn>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>Ca_sr_bufsr</ci>
+            <apply>
+               <divide/>
+               <cn cellml:units="dimensionless">1</cn>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>Buf_sr</ci>
+                        <ci>K_buf_sr</ci>
+                     </apply>
+                     <apply>
+                        <power/>
+                        <apply>
+                           <plus/>
+                           <ci>Ca_SR</ci>
+                           <ci>K_buf_sr</ci>
+                        </apply>
+                        <cn cellml:units="dimensionless">2</cn>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>Ca_ss_bufss</ci>
+            <apply>
+               <divide/>
+               <cn cellml:units="dimensionless">1</cn>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>Buf_ss</ci>
+                        <ci>K_buf_ss</ci>
+                     </apply>
+                     <apply>
+                        <power/>
+                        <apply>
+                           <plus/>
+                           <ci>Ca_ss</ci>
+                           <ci>K_buf_ss</ci>
+                        </apply>
+                        <cn cellml:units="dimensionless">2</cn>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>Ca_i</ci>
+            </apply>
+            <apply>
+               <times/>
+               <ci>Ca_i_bufc</ci>
+               <apply>
+                  <minus/>
+                  <apply>
+                     <plus/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <apply>
+                              <minus/>
+                              <ci>i_leak</ci>
+                              <ci>i_up</ci>
+                           </apply>
+                           <ci>V_sr</ci>
+                        </apply>
+                        <ci>V_c</ci>
+                     </apply>
+                     <ci>i_xfer</ci>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <cn cellml:units="mA_pA">1</cn>
+                        <apply>
+                           <minus/>
+                           <apply>
+                              <plus/>
+                              <ci>i_b_Ca</ci>
+                              <ci>i_p_Ca</ci>
+                           </apply>
+                           <apply>
+                              <times/>
+                              <cn cellml:units="dimensionless">2</cn>
+                              <ci>i_NaCa</ci>
+                           </apply>
+                        </apply>
+                        <ci>Cm</ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <cn cellml:units="dimensionless">2</cn>
+                        <cn cellml:units="litre_micrometre3">1</cn>
+                        <ci>V_c</ci>
+                        <ci>F</ci>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>Ca_SR</ci>
+            </apply>
+            <apply>
+               <times/>
+               <ci>Ca_sr_bufsr</ci>
+               <apply>
+                  <minus/>
+                  <ci>i_up</ci>
+                  <apply>
+                     <plus/>
+                     <ci>i_rel</ci>
+                     <ci>i_leak</ci>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>Ca_ss</ci>
+            </apply>
+            <apply>
+               <times/>
+               <ci>Ca_ss_bufss</ci>
+               <apply>
+                  <minus/>
+                  <apply>
+                     <plus/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <apply>
+                              <minus/>
+                              <cn cellml:units="mA_pA">1</cn>
+                           </apply>
+                           <ci>i_CaL</ci>
+                           <ci>Cm</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <cn cellml:units="dimensionless">2</cn>
+                           <cn cellml:units="litre_micrometre3">1</cn>
+                           <ci>V_ss</ci>
+                           <ci>F</ci>
+                        </apply>
+                     </apply>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <ci>i_rel</ci>
+                           <ci>V_sr</ci>
+                        </apply>
+                        <ci>V_ss</ci>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>i_xfer</ci>
+                        <ci>V_c</ci>
+                     </apply>
+                     <ci>V_ss</ci>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="sodium_dynamics">
+      <variable units="millimolar" public_interface="out" name="Na_i" initial_value="8.604"/>
+      <variable units="millimolar" public_interface="out" name="Na_o" initial_value="140"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <variable units="coulomb_per_millimole" public_interface="in" name="F"/>
+      <variable units="microF" public_interface="in" name="Cm"/>
+      <variable units="micrometre3" public_interface="in" name="V_c"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="i_Na"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="i_NaCa"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="i_NaK"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="i_b_Na"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>Na_i</ci>
+            </apply>
+            <apply>
+               <times/>
+               <apply>
+                  <divide/>
+                  <apply>
+                     <times/>
+                     <apply>
+                        <minus/>
+                        <cn cellml:units="mA_pA">1</cn>
+                     </apply>
+                     <apply>
+                        <plus/>
+                        <ci>i_Na</ci>
+                        <ci>i_b_Na</ci>
+                        <apply>
+                           <times/>
+                           <cn cellml:units="dimensionless">3</cn>
+                           <ci>i_NaK</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <cn cellml:units="dimensionless">3</cn>
+                           <ci>i_NaCa</ci>
+                        </apply>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <times/>
+                     <cn cellml:units="litre_micrometre3">1</cn>
+                     <ci>V_c</ci>
+                     <ci>F</ci>
+                  </apply>
+               </apply>
+               <ci>Cm</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="potassium_dynamics">
+      <variable units="millimolar" public_interface="out" name="K_i" initial_value="136.89"/>
+      <variable units="millimolar" public_interface="out" name="K_o" initial_value="5.4"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <variable units="coulomb_per_millimole" public_interface="in" name="F"/>
+      <variable units="microF" public_interface="in" name="Cm"/>
+      <variable units="micrometre3" public_interface="in" name="V_c"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="i_K1"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="i_to"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="i_NaK"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="i_Kr"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="i_Ks"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="i_p_K"/>
+      <variable units="picoA_per_picoF" public_interface="in" name="i_Stim"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>K_i</ci>
+            </apply>
+            <apply>
+               <times/>
+               <apply>
+                  <divide/>
+                  <apply>
+                     <times/>
+                     <apply>
+                        <minus/>
+                        <cn cellml:units="mA_pA">1</cn>
+                     </apply>
+                     <apply>
+                        <minus/>
+                        <apply>
+                           <plus/>
+                           <ci>i_K1</ci>
+                           <ci>i_to</ci>
+                           <ci>i_Kr</ci>
+                           <ci>i_Ks</ci>
+                           <ci>i_p_K</ci>
+                           <ci>i_Stim</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <cn cellml:units="dimensionless">2</cn>
+                           <ci>i_NaK</ci>
+                        </apply>
+                     </apply>
+                  </apply>
+                  <apply>
+                     <times/>
+                     <cn cellml:units="litre_micrometre3">1</cn>
+                     <ci>V_c</ci>
+                     <ci>F</ci>
+                  </apply>
+               </apply>
+               <ci>Cm</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="stimulus_protocol">
+      <variable units="picoA_per_picoF" public_interface="out" name="Istim"/>
+      <variable units="millisecond" name="IstimStart" initial_value="10"/>
+      <variable units="millisecond" name="IstimEnd" initial_value="50000"/>
+      <variable units="picoA_per_picoF" name="IstimAmplitude" initial_value="-52"/>
+      <variable units="millisecond" name="IstimPeriod" initial_value="1000"/>
+      <variable units="millisecond" name="IstimPulseDuration" initial_value="1"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>Istim</ci>
+            <piecewise>
+               <piece>
+                  <ci>IstimAmplitude</ci>
+                  <apply>
+                     <and/>
+                     <apply>
+                        <geq/>
+                        <ci>time</ci>
+                        <ci>IstimStart</ci>
+                     </apply>
+                     <apply>
+                        <leq/>
+                        <ci>time</ci>
+                        <ci>IstimEnd</ci>
+                     </apply>
+                     <apply>
+                        <leq/>
+                        <apply>
+                           <minus/>
+                           <apply>
+                              <minus/>
+                              <ci>time</ci>
+                              <ci>IstimStart</ci>
+                           </apply>
+                           <apply>
+                              <times/>
+                              <apply>
+                                 <floor/>
+                                 <apply>
+                                    <divide/>
+                                    <apply>
+                                       <minus/>
+                                       <ci>time</ci>
+                                       <ci>IstimStart</ci>
+                                    </apply>
+                                    <ci>IstimPeriod</ci>
+                                 </apply>
+                              </apply>
+                              <ci>IstimPeriod</ci>
+                           </apply>
+                        </apply>
+                        <ci>IstimPulseDuration</ci>
+                     </apply>
+                  </apply>
+               </piece>
+               <otherwise>
+                  <cn cellml:units="picoA_per_picoF">0</cn>
+               </otherwise>
+            </piecewise>
+         </apply>
+      </math>
+   </component>
+   <group>
+      <relationship_ref relationship="containment"/>
+      <component_ref component="membrane">
+         <component_ref component="fast_sodium_current">
+            <component_ref component="fast_sodium_current_m_gate"/>
+            <component_ref component="fast_sodium_current_h_gate"/>
+            <component_ref component="fast_sodium_current_j_gate"/>
+         </component_ref>
+         <component_ref component="L_type_Ca_current">
+            <component_ref component="L_type_Ca_current_d_gate"/>
+            <component_ref component="L_type_Ca_current_f_gate"/>
+            <component_ref component="L_type_Ca_current_f2_gate"/>
+            <component_ref component="L_type_Ca_current_fCass_gate"/>
+         </component_ref>
+         <component_ref component="inward_rectifier_potassium_current"/>
+         <component_ref component="rapid_time_dependent_potassium_current">
+            <component_ref component="rapid_time_dependent_potassium_current_Xr1_gate"/>
+            <component_ref component="rapid_time_dependent_potassium_current_Xr2_gate"/>
+         </component_ref>
+         <component_ref component="slow_time_dependent_potassium_current">
+            <component_ref component="slow_time_dependent_potassium_current_Xs_gate"/>
+         </component_ref>
+         <component_ref component="sodium_background_current"/>
+         <component_ref component="calcium_background_current"/>
+         <component_ref component="transient_outward_current">
+            <component_ref component="transient_outward_current_s_gate"/>
+            <component_ref component="transient_outward_current_r_gate"/>
+         </component_ref>
+         <component_ref component="sodium_potassium_pump_current"/>
+         <component_ref component="sodium_calcium_exchanger_current"/>
+         <component_ref component="calcium_pump_current"/>
+         <component_ref component="potassium_pump_current"/>
+         <component_ref component="calcium_dynamics"/>
+         <component_ref component="sodium_dynamics"/>
+         <component_ref component="potassium_dynamics"/>
+         <component_ref component="reversal_potentials"/>
+      </component_ref>
+   </group>
+   <group>
+      <relationship_ref relationship="encapsulation"/>
+      <component_ref component="fast_sodium_current">
+         <component_ref component="fast_sodium_current_m_gate"/>
+         <component_ref component="fast_sodium_current_h_gate"/>
+         <component_ref component="fast_sodium_current_j_gate"/>
+      </component_ref>
+      <component_ref component="L_type_Ca_current">
+         <component_ref component="L_type_Ca_current_d_gate"/>
+         <component_ref component="L_type_Ca_current_f_gate"/>
+         <component_ref component="L_type_Ca_current_f2_gate"/>
+         <component_ref component="L_type_Ca_current_fCass_gate"/>
+      </component_ref>
+      <component_ref component="rapid_time_dependent_potassium_current">
+         <component_ref component="rapid_time_dependent_potassium_current_Xr1_gate"/>
+         <component_ref component="rapid_time_dependent_potassium_current_Xr2_gate"/>
+      </component_ref>
+      <component_ref component="slow_time_dependent_potassium_current">
+         <component_ref component="slow_time_dependent_potassium_current_Xs_gate"/>
+      </component_ref>
+      <component_ref component="transient_outward_current">
+         <component_ref component="transient_outward_current_s_gate"/>
+         <component_ref component="transient_outward_current_r_gate"/>
+      </component_ref>
+   </group>
+   <connection>
+      <map_components component_2="stimulus_protocol" component_1="membrane"/>
+      <map_variables variable_2="Istim" variable_1="Istim"/>
+   </connection>
+   <connection>
+      <map_components component_2="stimulus_protocol" component_1="environment"/>
+      <map_variables variable_2="time" variable_1="time"/>
+   </connection>
+   <connection>
+      <map_components component_2="environment" component_1="membrane"/>
+      <map_variables variable_2="time" variable_1="time"/>
+   </connection>
+   <connection>
+      <map_components component_2="environment" component_1="reversal_potentials"/>
+      <map_variables variable_2="time" variable_1="time"/>
+   </connection>
+   <connection>
+      <map_components component_2="environment" component_1="fast_sodium_current"/>
+      <map_variables variable_2="time" variable_1="time"/>
+   </connection>
+   <connection>
+      <map_components component_2="environment" component_1="L_type_Ca_current"/>
+      <map_variables variable_2="time" variable_1="time"/>
+   </connection>
+   <connection>
+      <map_components component_2="environment" component_1="rapid_time_dependent_potassium_current"/>
+      <map_variables variable_2="time" variable_1="time"/>
+   </connection>
+   <connection>
+      <map_components component_2="environment" component_1="slow_time_dependent_potassium_current"/>
+      <map_variables variable_2="time" variable_1="time"/>
+   </connection>
+   <connection>
+      <map_components component_2="environment" component_1="inward_rectifier_potassium_current"/>
+      <map_variables variable_2="time" variable_1="time"/>
+   </connection>
+   <connection>
+      <map_components component_2="environment" component_1="sodium_background_current"/>
+      <map_variables variable_2="time" variable_1="time"/>
+   </connection>
+   <connection>
+      <map_components component_2="environment" component_1="calcium_background_current"/>
+      <map_variables variable_2="time" variable_1="time"/>
+   </connection>
+   <connection>
+      <map_components component_2="environment" component_1="transient_outward_current"/>
+      <map_variables variable_2="time" variable_1="time"/>
+   </connection>
+   <connection>
+      <map_components component_2="environment" component_1="sodium_potassium_pump_current"/>
+      <map_variables variable_2="time" variable_1="time"/>
+   </connection>
+   <connection>
+      <map_components component_2="environment" component_1="sodium_calcium_exchanger_current"/>
+      <map_variables variable_2="time" variable_1="time"/>
+   </connection>
+   <connection>
+      <map_components component_2="environment" component_1="calcium_dynamics"/>
+      <map_variables variable_2="time" variable_1="time"/>
+   </connection>
+   <connection>
+      <map_components component_2="environment" component_1="sodium_dynamics"/>
+      <map_variables variable_2="time" variable_1="time"/>
+   </connection>
+   <connection>
+      <map_components component_2="environment" component_1="potassium_dynamics"/>
+      <map_variables variable_2="time" variable_1="time"/>
+   </connection>
+   <connection>
+      <map_components component_2="reversal_potentials" component_1="membrane"/>
+      <map_variables variable_2="R" variable_1="R"/>
+      <map_variables variable_2="T" variable_1="T"/>
+      <map_variables variable_2="F" variable_1="F"/>
+   </connection>
+   <connection>
+      <map_components component_2="fast_sodium_current" component_1="membrane"/>
+      <map_variables variable_2="V" variable_1="V"/>
+      <map_variables variable_2="i_Na" variable_1="i_Na"/>
+   </connection>
+   <connection>
+      <map_components component_2="L_type_Ca_current" component_1="membrane"/>
+      <map_variables variable_2="V" variable_1="V"/>
+      <map_variables variable_2="i_CaL" variable_1="i_CaL"/>
+      <map_variables variable_2="R" variable_1="R"/>
+      <map_variables variable_2="T" variable_1="T"/>
+      <map_variables variable_2="F" variable_1="F"/>
+   </connection>
+   <connection>
+      <map_components component_2="rapid_time_dependent_potassium_current" component_1="membrane"/>
+      <map_variables variable_2="V" variable_1="V"/>
+      <map_variables variable_2="i_Kr" variable_1="i_Kr"/>
+   </connection>
+   <connection>
+      <map_components component_2="slow_time_dependent_potassium_current" component_1="membrane"/>
+      <map_variables variable_2="V" variable_1="V"/>
+      <map_variables variable_2="i_Ks" variable_1="i_Ks"/>
+   </connection>
+   <connection>
+      <map_components component_2="transient_outward_current" component_1="membrane"/>
+      <map_variables variable_2="V" variable_1="V"/>
+      <map_variables variable_2="i_to" variable_1="i_to"/>
+   </connection>
+   <connection>
+      <map_components component_2="inward_rectifier_potassium_current" component_1="membrane"/>
+      <map_variables variable_2="V" variable_1="V"/>
+      <map_variables variable_2="i_K1" variable_1="i_K1"/>
+   </connection>
+   <connection>
+      <map_components component_2="sodium_background_current" component_1="membrane"/>
+      <map_variables variable_2="V" variable_1="V"/>
+      <map_variables variable_2="i_b_Na" variable_1="i_b_Na"/>
+   </connection>
+   <connection>
+      <map_components component_2="calcium_background_current" component_1="membrane"/>
+      <map_variables variable_2="V" variable_1="V"/>
+      <map_variables variable_2="i_b_Ca" variable_1="i_b_Ca"/>
+   </connection>
+   <connection>
+      <map_components component_2="sodium_potassium_pump_current" component_1="membrane"/>
+      <map_variables variable_2="V" variable_1="V"/>
+      <map_variables variable_2="i_NaK" variable_1="i_NaK"/>
+      <map_variables variable_2="R" variable_1="R"/>
+      <map_variables variable_2="T" variable_1="T"/>
+      <map_variables variable_2="F" variable_1="F"/>
+   </connection>
+   <connection>
+      <map_components component_2="sodium_calcium_exchanger_current" component_1="membrane"/>
+      <map_variables variable_2="V" variable_1="V"/>
+      <map_variables variable_2="i_NaCa" variable_1="i_NaCa"/>
+      <map_variables variable_2="R" variable_1="R"/>
+      <map_variables variable_2="T" variable_1="T"/>
+      <map_variables variable_2="F" variable_1="F"/>
+   </connection>
+   <connection>
+      <map_components component_2="calcium_pump_current" component_1="membrane"/>
+      <map_variables variable_2="i_p_Ca" variable_1="i_p_Ca"/>
+   </connection>
+   <connection>
+      <map_components component_2="potassium_pump_current" component_1="membrane"/>
+      <map_variables variable_2="V" variable_1="V"/>
+      <map_variables variable_2="i_p_K" variable_1="i_p_K"/>
+   </connection>
+   <connection>
+      <map_components component_2="calcium_dynamics" component_1="membrane"/>
+      <map_variables variable_2="V" variable_1="V"/>
+      <map_variables variable_2="F" variable_1="F"/>
+      <map_variables variable_2="V_c" variable_1="V_c"/>
+      <map_variables variable_2="Cm" variable_1="Cm"/>
+   </connection>
+   <connection>
+      <map_components component_2="sodium_dynamics" component_1="membrane"/>
+      <map_variables variable_2="F" variable_1="F"/>
+      <map_variables variable_2="V_c" variable_1="V_c"/>
+      <map_variables variable_2="Cm" variable_1="Cm"/>
+   </connection>
+   <connection>
+      <map_components component_2="potassium_dynamics" component_1="membrane"/>
+      <map_variables variable_2="F" variable_1="F"/>
+      <map_variables variable_2="V_c" variable_1="V_c"/>
+      <map_variables variable_2="Cm" variable_1="Cm"/>
+      <map_variables variable_2="i_Stim" variable_1="i_Stim"/>
+   </connection>
+   <connection>
+      <map_components component_2="sodium_background_current" component_1="reversal_potentials"/>
+      <map_variables variable_2="E_Na" variable_1="E_Na"/>
+   </connection>
+   <connection>
+      <map_components component_2="inward_rectifier_potassium_current" component_1="reversal_potentials"/>
+      <map_variables variable_2="E_K" variable_1="E_K"/>
+   </connection>
+   <connection>
+      <map_components component_2="rapid_time_dependent_potassium_current" component_1="reversal_potentials"/>
+      <map_variables variable_2="E_K" variable_1="E_K"/>
+   </connection>
+   <connection>
+      <map_components component_2="transient_outward_current" component_1="reversal_potentials"/>
+      <map_variables variable_2="E_K" variable_1="E_K"/>
+   </connection>
+   <connection>
+      <map_components component_2="potassium_pump_current" component_1="reversal_potentials"/>
+      <map_variables variable_2="E_K" variable_1="E_K"/>
+   </connection>
+   <connection>
+      <map_components component_2="slow_time_dependent_potassium_current" component_1="reversal_potentials"/>
+      <map_variables variable_2="E_Ks" variable_1="E_Ks"/>
+   </connection>
+   <connection>
+      <map_components component_2="calcium_background_current" component_1="reversal_potentials"/>
+      <map_variables variable_2="E_Ca" variable_1="E_Ca"/>
+   </connection>
+   <connection>
+      <map_components component_2="fast_sodium_current" component_1="reversal_potentials"/>
+      <map_variables variable_2="E_Na" variable_1="E_Na"/>
+   </connection>
+   <connection>
+      <map_components component_2="calcium_dynamics" component_1="reversal_potentials"/>
+      <map_variables variable_2="Ca_o" variable_1="Ca_o"/>
+      <map_variables variable_2="Ca_i" variable_1="Ca_i"/>
+   </connection>
+   <connection>
+      <map_components component_2="potassium_dynamics" component_1="reversal_potentials"/>
+      <map_variables variable_2="K_o" variable_1="K_o"/>
+      <map_variables variable_2="K_i" variable_1="K_i"/>
+   </connection>
+   <connection>
+      <map_components component_2="sodium_dynamics" component_1="reversal_potentials"/>
+      <map_variables variable_2="Na_o" variable_1="Na_o"/>
+      <map_variables variable_2="Na_i" variable_1="Na_i"/>
+   </connection>
+   <connection>
+      <map_components component_2="potassium_dynamics" component_1="inward_rectifier_potassium_current"/>
+      <map_variables variable_2="i_K1" variable_1="i_K1"/>
+      <map_variables variable_2="K_o" variable_1="K_o"/>
+   </connection>
+   <connection>
+      <map_components component_2="potassium_dynamics" component_1="rapid_time_dependent_potassium_current"/>
+      <map_variables variable_2="i_Kr" variable_1="i_Kr"/>
+      <map_variables variable_2="K_o" variable_1="K_o"/>
+   </connection>
+   <connection>
+      <map_components component_2="potassium_dynamics" component_1="slow_time_dependent_potassium_current"/>
+      <map_variables variable_2="i_Ks" variable_1="i_Ks"/>
+   </connection>
+   <connection>
+      <map_components component_2="sodium_dynamics" component_1="fast_sodium_current"/>
+      <map_variables variable_2="i_Na" variable_1="i_Na"/>
+   </connection>
+   <connection>
+      <map_components component_2="sodium_dynamics" component_1="sodium_background_current"/>
+      <map_variables variable_2="i_b_Na" variable_1="i_b_Na"/>
+   </connection>
+   <connection>
+      <map_components component_2="calcium_dynamics" component_1="L_type_Ca_current"/>
+      <map_variables variable_2="Ca_o" variable_1="Ca_o"/>
+      <map_variables variable_2="Ca_ss" variable_1="Ca_ss"/>
+      <map_variables variable_2="d" variable_1="d"/>
+      <map_variables variable_2="i_CaL" variable_1="i_CaL"/>
+   </connection>
+   <connection>
+      <map_components component_2="calcium_dynamics" component_1="calcium_pump_current"/>
+      <map_variables variable_2="Ca_i" variable_1="Ca_i"/>
+      <map_variables variable_2="i_p_Ca" variable_1="i_p_Ca"/>
+   </connection>
+   <connection>
+      <map_components component_2="calcium_dynamics" component_1="calcium_background_current"/>
+      <map_variables variable_2="i_b_Ca" variable_1="i_b_Ca"/>
+   </connection>
+   <connection>
+      <map_components component_2="potassium_dynamics" component_1="sodium_potassium_pump_current"/>
+      <map_variables variable_2="i_NaK" variable_1="i_NaK"/>
+      <map_variables variable_2="K_o" variable_1="K_o"/>
+   </connection>
+   <connection>
+      <map_components component_2="sodium_dynamics" component_1="sodium_potassium_pump_current"/>
+      <map_variables variable_2="i_NaK" variable_1="i_NaK"/>
+      <map_variables variable_2="Na_i" variable_1="Na_i"/>
+   </connection>
+   <connection>
+      <map_components component_2="calcium_dynamics" component_1="sodium_calcium_exchanger_current"/>
+      <map_variables variable_2="i_NaCa" variable_1="i_NaCa"/>
+      <map_variables variable_2="Ca_i" variable_1="Ca_i"/>
+      <map_variables variable_2="Ca_o" variable_1="Ca_o"/>
+   </connection>
+   <connection>
+      <map_components component_2="sodium_dynamics" component_1="sodium_calcium_exchanger_current"/>
+      <map_variables variable_2="i_NaCa" variable_1="i_NaCa"/>
+      <map_variables variable_2="Na_i" variable_1="Na_i"/>
+      <map_variables variable_2="Na_o" variable_1="Na_o"/>
+   </connection>
+   <connection>
+      <map_components component_2="rapid_time_dependent_potassium_current_Xr1_gate" component_1="rapid_time_dependent_potassium_current"/>
+      <map_variables variable_2="Xr1" variable_1="Xr1"/>
+      <map_variables variable_2="time" variable_1="time"/>
+      <map_variables variable_2="V" variable_1="V"/>
+   </connection>
+   <connection>
+      <map_components component_2="rapid_time_dependent_potassium_current_Xr2_gate" component_1="rapid_time_dependent_potassium_current"/>
+      <map_variables variable_2="Xr2" variable_1="Xr2"/>
+      <map_variables variable_2="time" variable_1="time"/>
+      <map_variables variable_2="V" variable_1="V"/>
+   </connection>
+   <connection>
+      <map_components component_2="slow_time_dependent_potassium_current_Xs_gate" component_1="slow_time_dependent_potassium_current"/>
+      <map_variables variable_2="Xs" variable_1="Xs"/>
+      <map_variables variable_2="time" variable_1="time"/>
+      <map_variables variable_2="V" variable_1="V"/>
+   </connection>
+   <connection>
+      <map_components component_2="fast_sodium_current_m_gate" component_1="fast_sodium_current"/>
+      <map_variables variable_2="m" variable_1="m"/>
+      <map_variables variable_2="time" variable_1="time"/>
+      <map_variables variable_2="V" variable_1="V"/>
+   </connection>
+   <connection>
+      <map_components component_2="fast_sodium_current_h_gate" component_1="fast_sodium_current"/>
+      <map_variables variable_2="h" variable_1="h"/>
+      <map_variables variable_2="time" variable_1="time"/>
+      <map_variables variable_2="V" variable_1="V"/>
+   </connection>
+   <connection>
+      <map_components component_2="fast_sodium_current_j_gate" component_1="fast_sodium_current"/>
+      <map_variables variable_2="j" variable_1="j"/>
+      <map_variables variable_2="time" variable_1="time"/>
+      <map_variables variable_2="V" variable_1="V"/>
+   </connection>
+   <connection>
+      <map_components component_2="L_type_Ca_current_d_gate" component_1="L_type_Ca_current"/>
+      <map_variables variable_2="d" variable_1="d"/>
+      <map_variables variable_2="time" variable_1="time"/>
+      <map_variables variable_2="V" variable_1="V"/>
+   </connection>
+   <connection>
+      <map_components component_2="L_type_Ca_current_f_gate" component_1="L_type_Ca_current"/>
+      <map_variables variable_2="f" variable_1="f"/>
+      <map_variables variable_2="time" variable_1="time"/>
+      <map_variables variable_2="V" variable_1="V"/>
+   </connection>
+   <connection>
+      <map_components component_2="L_type_Ca_current_f2_gate" component_1="L_type_Ca_current"/>
+      <map_variables variable_2="f2" variable_1="f2"/>
+      <map_variables variable_2="time" variable_1="time"/>
+      <map_variables variable_2="V" variable_1="V"/>
+   </connection>
+   <connection>
+      <map_components component_2="L_type_Ca_current_fCass_gate" component_1="L_type_Ca_current"/>
+      <map_variables variable_2="fCass" variable_1="fCass"/>
+      <map_variables variable_2="time" variable_1="time"/>
+      <map_variables variable_2="Ca_ss" variable_1="Ca_ss"/>
+      <map_variables variable_2="V" variable_1="V"/>
+   </connection>
+   <connection>
+      <map_components component_2="transient_outward_current_s_gate" component_1="transient_outward_current"/>
+      <map_variables variable_2="s" variable_1="s"/>
+      <map_variables variable_2="time" variable_1="time"/>
+      <map_variables variable_2="V" variable_1="V"/>
+   </connection>
+   <connection>
+      <map_components component_2="transient_outward_current_r_gate" component_1="transient_outward_current"/>
+      <map_variables variable_2="r" variable_1="r"/>
+      <map_variables variable_2="time" variable_1="time"/>
+      <map_variables variable_2="V" variable_1="V"/>
+   </connection>
+   <connection>
+      <map_components component_2="potassium_dynamics" component_1="transient_outward_current"/>
+      <map_variables variable_2="i_to" variable_1="i_to"/>
+   </connection>
+   <connection>
+      <map_components component_2="potassium_dynamics" component_1="potassium_pump_current"/>
+      <map_variables variable_2="i_p_K" variable_1="i_p_K"/>
+   </connection>
+
+<rdf:RDF>
+  <rdf:Seq rdf:about="rdf:#09ff0c7b-99b1-449b-9e17-bcb5562b1b3b">
+    <rdf:li rdf:resource="rdf:#c0421d6f-a6c3-4b5f-bec9-62be89d89dd3"/>
+    <rdf:li rdf:resource="rdf:#967f24ee-9a84-4867-88ea-5bb700acd92d"/>
+  </rdf:Seq>
+  <rdf:Description rdf:about="rdf:#ce06fdc7-49ad-4601-9845-1eb198c55ca5">
+    <bqs:Pubmed_id>16565318</bqs:Pubmed_id>
+    <bqs:JournalArticle rdf:resource="rdf:#06bf2722-e66a-4cb3-9e8c-3707b6370016"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#e6f4b102-3a19-4d7e-8ea2-0c687af9e3d2">
+    <dcterms:modified rdf:resource="rdf:#df21c470-d2b1-4e8e-acba-a81b22f18e32"/>
+    <rdf:value>Corrections to model name and stimulus current to enable running in COR.</rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#66b631d1-3da9-4a80-9ea3-40ff779e326e"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="">
+    <dc:publisher>Department of Physiology, Anatomy &amp; Genetics, University of Oxford</dc:publisher>
+    <cmeta:comment rdf:resource="rdf:#20d36014-5fc0-4db2-848a-06808c13956a"/>
+    <dcterms:created rdf:resource="rdf:#851bc7e3-f88f-4470-8ef6-220d3a0de35c"/>
+    <dc:creator rdf:resource="rdf:#e8e1cadc-c844-4f01-8fb2-23b6a9778307"/>
+    <cmeta:modification rdf:resource="rdf:#71cf01fb-2a27-4f17-ae11-e3af37152be5"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#a663026b-7439-4755-9736-9bacc8dac760">
+    <dcterms:W3CDTF>2006-09-00 00:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#df21c470-d2b1-4e8e-acba-a81b22f18e32">
+    <dcterms:W3CDTF>2008-05-14T00:32:31+12:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#d10c41c5-973f-46e5-82ac-c3a64692663c">
+    <vCard:N rdf:resource="rdf:#177d872d-da13-48f3-b7bc-3378c3f6e2fc"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#0fe23378-50f6-437f-ba8d-f28574bc225a">
+    <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+    <rdf:value>penny.noble@dpag.ox.ac.uk</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#967f24ee-9a84-4867-88ea-5bb700acd92d">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#5dc559a2-604e-4600-a3df-f915ee41829b"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#5dc559a2-604e-4600-a3df-f915ee41829b">
+    <vCard:Given>AV</vCard:Given>
+    <vCard:Family>Panfilov</vCard:Family>
+  </rdf:Description>
+  <rdf:Description rdf:about="#tentusscher_panfilov_2006_epi_cell">
+    <ns7:simulation rdf:resource="rdf:#$rZrww3"/>
+    <bqs:reference rdf:resource="rdf:#ce06fdc7-49ad-4601-9845-1eb198c55ca5"/>
+<bqs:reference rdf:parseType="Resource">
+  <dc:subject rdf:parseType="Resource">
+    <bqs:subject_type>keyword</bqs:subject_type>
+    <rdf:value>
+      <rdf:Bag>
+        <rdf:li>spiral breakup</rdf:li>
+        <rdf:li>ventricular myocyte</rdf:li>
+        <rdf:li>cardiac electrophysiology</rdf:li>
+        <rdf:li>electrophysiology</rdf:li>
+        <rdf:li>cardiac</rdf:li>
+        <rdf:li>alternans</rdf:li>
+      </rdf:Bag>
+    </rdf:value>
+  </dc:subject>
+</bqs:reference>
+    <cmeta:comment rdf:resource="rdf:#e7831a1d-3224-4ed8-84df-a8c7570cec48"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#de305858-cacb-49f0-9477-c6cd13b3b077">
+    <vCard:FN/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#71cf01fb-2a27-4f17-ae11-e3af37152be5">
+    <dcterms:modified rdf:resource="rdf:#358d52ba-b198-42b7-97eb-58214ddce4d5"/>
+    <rdf:value>Added simulation metadata to allow simulation for 5 seconds.&#13;
+Changed model cmeta:id to remove version number.</rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#d10c41c5-973f-46e5-82ac-c3a64692663c"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#$sZrww3">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first rdf:resource="rdf:#$tZrww3"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#c0d6c2ca-279d-43f8-b53d-546bbf593236">
+    <vCard:Given>KH</vCard:Given>
+    <vCard:Family>ten Tusscher</vCard:Family>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#66b631d1-3da9-4a80-9ea3-40ff779e326e">
+    <vCard:N rdf:resource="rdf:#35270032-b4e0-496a-babf-0ea462305d17"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#06bf2722-e66a-4cb3-9e8c-3707b6370016">
+    <dc:creator rdf:resource="rdf:#09ff0c7b-99b1-449b-9e17-bcb5562b1b3b"/>
+    <dc:title>Alternans and spiral breakup in a human ventricular tissue model.</dc:title>
+    <bqs:volume>291</bqs:volume>
+    <bqs:first_page>1088</bqs:first_page>
+    <bqs:Journal rdf:resource="rdf:#6f200ede-1d58-4951-a2db-e9d2ac1cf8f8"/>
+    <dcterms:issued rdf:resource="rdf:#a663026b-7439-4755-9736-9bacc8dac760"/>
+    <bqs:last_page>1100</bqs:last_page>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#851bc7e3-f88f-4470-8ef6-220d3a0de35c">
+    <dcterms:W3CDTF>2008-05-14T00:00:00+00:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#$tZrww3">
+    <ns7:endingValue>5000</ns7:endingValue>
+    <ns7:nonstandard-pointDensity>10000</ns7:nonstandard-pointDensity>
+    <ns7:maximumStepSize>0.1</ns7:maximumStepSize>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#6863ba33-4855-4edb-bf81-93b38992a7eb">
+    <vCard:FN>Penny Noble</vCard:FN>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#47c4593a-207a-4e9f-aba2-b38363c7c4a1">
+    <vCard:FN>Penny Noble</vCard:FN>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#c3412b56-706b-4103-adc4-71b678b55c9f">
+    <vCard:Orgname>University of Oxford</vCard:Orgname>
+    <vCard:Orgunit>Department of Physiology, Anatomy &amp; Genetics</vCard:Orgunit>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#177d872d-da13-48f3-b7bc-3378c3f6e2fc">
+    <vCard:Given>James</vCard:Given>
+    <vCard:Family>Lawson</vCard:Family>
+    <vCard:Other>Richard</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#20d36014-5fc0-4db2-848a-06808c13956a">
+    <dc:creator rdf:resource="rdf:#47c4593a-207a-4e9f-aba2-b38363c7c4a1"/>
+    <rdf:value>The 2006 model is based on earlier ten Tusscher models, and incorporates recent experimental restitution data, an improved description of intracellular calcium dynamics - including subspace calcium dynamics which control L-type calcium current and calcium-induced calcium release (CICR,) by means of modelling CICR with a four-state Markov model for the ryanodine receptor - and incorporation of both fast and slow voltage-gated inactivation of the L-type calcium current. &#13;
+This is the EPICARDIAL CELL VARIANT of the model. This model was created by Penny Noble of Oxford University and is known to read in COR and PCEnv.</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#358d52ba-b198-42b7-97eb-58214ddce4d5">
+    <dcterms:W3CDTF>2008-06-19T11:12:23+12:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#e7831a1d-3224-4ed8-84df-a8c7570cec48">
+    <dc:creator rdf:resource="rdf:#de305858-cacb-49f0-9477-c6cd13b3b077"/>
+    <rdf:value/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#a315c7a3-23c1-444e-84c9-0a46bb82125a">
+    <dc:creator rdf:resource="rdf:#6863ba33-4855-4edb-bf81-93b38992a7eb"/>
+    <rdf:value>The 2006 model is based on earlier ten Tusscher models, and incorporates recent experimental restitution data, an improved description of intracellular calcium dynamics - including subspace calcium dynamics which control L-type calcium current and calcium-induced calcium release (CICR,) by means of modelling CICR with a four-state Markov model for the ryanodine receptor - and incorporation of both fast and slow voltage-gated inactivation of the L-type calcium current. 
+This is the EPICARDIAL CELL VARIANT of the model. This model was created by Penny Noble of Oxford University and is known to read in COR and PCEnv.</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#c0421d6f-a6c3-4b5f-bec9-62be89d89dd3">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#c0d6c2ca-279d-43f8-b53d-546bbf593236"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#35270032-b4e0-496a-babf-0ea462305d17">
+    <vCard:Given>Penny</vCard:Given>
+    <vCard:Family>Noble</vCard:Family>
+    <vCard:Other/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#a4604fa1-7b18-45c4-afd3-d6f802dcc707">
+    <vCard:Given>Penny</vCard:Given>
+    <vCard:Family>Noble</vCard:Family>
+    <vCard:Other>J</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#$rZrww3">
+    <ns7:boundIntervals rdf:resource="rdf:#$sZrww3"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#e8e1cadc-c844-4f01-8fb2-23b6a9778307">
+    <vCard:ORG rdf:resource="rdf:#c3412b56-706b-4103-adc4-71b678b55c9f"/>
+    <vCard:EMAIL rdf:resource="rdf:#0fe23378-50f6-437f-ba8d-f28574bc225a"/>
+    <vCard:N rdf:resource="rdf:#a4604fa1-7b18-45c4-afd3-d6f802dcc707"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#6f200ede-1d58-4951-a2db-e9d2ac1cf8f8">
+    <dc:title>American Journal of Physiology</dc:title>
+  </rdf:Description>
+</rdf:RDF>
+</model>
