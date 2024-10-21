@@ -36,3 +36,6 @@ This repository contains three examples: solving the Laplace equation on 2D doma
 >`python main.py --epoch 10000`
 
 **Note**: please train with the same number of epochs to reproduce the results in the paper.
+
+**Note**: the ten Tusscher model is adopted from the cellular model in CellML repository. ![tentusscher_2006](https://github.com/user-attachments/assets/1afb9b0a-e972-4876-8066-a0a774110e2e)
+
