@@ -3,7 +3,7 @@ We introduce a neural operator framework, named **DIffeomorphic Mapping Operator
 
 ![dimon](./figure/dimon.png)
 
-**Data**: https://livejohnshopkins-my.sharepoint.com/:f:/g/personal/myin16_jh_edu/Emh_HjEzP9NKh728InPkjvMBXWdvM7mwpLhQ8MblbYnLWw?e=q1j7cB
+**Data**: https://doi.org/10.5281/zenodo.13958884
 
 **Note**: Data in example 3 is not included in this link as the heart geometries are patient-specific clinical data. Data in Example 3 can be provided by request to the corresponding authors and potentially after an IRB for sharing data is approved.
 
